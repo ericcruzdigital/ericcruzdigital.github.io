@@ -1,19 +1,22 @@
-# Eric John Cruz — Digital Marketing & SEO Portfolio
+# Eric John Cruz — SEO, Growth & Digital Marketing Portfolio
 
-Primary public portfolio for SEO, digital marketing, marketing operations, website implementation, reporting, and digital operations.
+Public portfolio for SEO, growth strategy, digital marketing operations, content, paid search, reporting, email marketing, website implementation, and marketing operations.
 
-## Public URL
+## Live portfolio
 https://ericcruzdigital.github.io/
 
-## Practice project
+## Featured project
 https://ericcruzdigital.github.io/islaclean/
 
-## Evidence policy
-- Professional workflows are labeled as professional work.
-- Independent projects are labeled as practice projects.
-- Learning projects are not presented as client experience.
-- Client-identifying documents, private emails, lead data, and internal source files are not reproduced publicly.
-- No fabricated rankings, traffic, reviews, clients, or unsupported tool experience.
+## Portfolio sections
+- Selected work and case studies
+- Growth strategy
+- SEO and content
+- Marketing analytics and reporting
+- Off-page SEO and email marketing
+- Google Ads experience
+- Digital marketing résumé
+- Work samples
 
 ## Privacy
-Only sanitized portfolio material intended for public viewing is published in this repository.
+Client-sensitive material, private lead data, internal documents, and private account information are not published in this repository.
