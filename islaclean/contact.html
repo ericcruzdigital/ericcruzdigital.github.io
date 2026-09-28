@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Contact Demo | IslaClean Palawan Practice Project</title>
+  <meta name="description" content="Demo contact form for the fictional IslaClean Palawan practice site. No information is transmitted or stored.">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="canonical" href="https://ericcruzdigital.github.io/islaclean/contact.html">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="practice-bar">Practice project only · Fictional service business · No client affiliation</div>
+  
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="index.html" aria-label="IslaClean Palawan home">
+        <span>IslaClean Palawan</span>
+        <small>Independent SEO practice project</small>
+      </a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="index.html" class="">Home</a><a href="services.html" class="">Services</a><a href="service-area.html" class="">Service Area</a><a href="about.html" class="">About</a><a href="blog.html" class="">Blog</a>
+        <a class="nav-cta active" href="contact.html" data-track="header_contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+  <main>
+  <section class="section">
+    <div class="container split">
+      <div>
+        <div class="breadcrumb"><a href="index.html">Home</a> / Contact</div>
+        <span class="eyebrow">Demo conversion path</span>
+        <h1>Test the inquiry flow without sending any data.</h1>
+        <p class="lead">This form exists only to demonstrate front-end conversion handling. Submitting it triggers a demo <code>dataLayer</code> event, then clears the fields locally.</p>
+        <div class="note">No form submission is sent to a server, email inbox, CRM, or third party.</div>
+      </div>
+      <div class="card">
+        <form data-demo-form="cleaning_request">
+          <label>Name<input type="text" name="name" placeholder="Demo visitor" required></label>
+          <label>Service
+            <select name="service" required>
+              <option value="">Choose a service</option>
+              <option>House Cleaning</option>
+              <option>Deep Cleaning</option>
+              <option>Move-In / Move-Out Cleaning</option>
+            </select>
+          </label>
+          <label>Message<textarea name="message" rows="5" placeholder="This is a demo message."></textarea></label>
+          <button class="btn primary" type="submit" data-track="contact_form_submit_button">Submit demo request</button>
+          <div class="form-status" data-form-status role="status" aria-live="polite"></div>
+        </form>
+      </div>
+    </div>
+  </section></main>
+  
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <strong>IslaClean Palawan</strong>
+        <p>This is a fictional local-service brand built by Eric John N. Cruz as an independent SEO and web implementation practice project. It is not a real cleaning company and does not collect leads.</p>
+      </div>
+      <div class="footer-links">
+        <a href="services.html">Services</a>
+        <a href="blog.html">Blog</a>
+        <a href="contact.html">Demo contact</a>
+      </div>
+    </div>
+  </footer>
+  <script src="script.js"></script>
+</body>
+</html>
