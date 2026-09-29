@@ -278,3 +278,26 @@ p,li,span,a,strong,b,h1,h2,h3{transform:none}
   .resume-body{padding:24px}
   .resume-section{break-inside:avoid}
 }
+
+
+/* Source-grounded work sample refresh */
+.work-visual{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:24px;
+  overflow:hidden;
+  box-shadow:0 14px 36px rgba(18,48,74,.07);
+}
+.work-visual img{
+  width:100%;
+  height:auto;
+  display:block;
+}
+.case-hero .work-visual{align-self:stretch}
+.case-hero .work-visual img{height:100%;object-fit:contain;background:#f7faf9}
+.gallery figure:has(img[src*="/work/"]) img{height:320px}
+.feature-case .image-preview img[src*="/work/"]{max-height:none;height:100%;object-fit:contain}
+@media(max-width:760px){
+  .gallery figure:has(img[src*="/work/"]) img{height:auto}
+  .case-hero .work-visual img{height:auto}
+}
