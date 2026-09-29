@@ -5,18 +5,20 @@ Public portfolio for SEO, growth strategy, digital marketing operations, content
 ## Live portfolio
 https://ericcruzdigital.github.io/
 
-## Featured project
+## Featured professional work
+- Multi-account SEO & growth operations
+- Google Ads campaign management
+- SEO & email performance reporting
+- Keyword strategy & content operations
+- Off-page SEO, citations, backlinks, and AI-search/community research
+
+## Featured website project
 https://ericcruzdigital.github.io/islaclean/
 
-## Portfolio sections
-- Selected work and case studies
-- Growth strategy
-- SEO and content
-- Marketing analytics and reporting
-- Off-page SEO and email marketing
-- Google Ads experience
-- Digital marketing résumé
-- Work samples
+## Work samples
+https://ericcruzdigital.github.io/evidence.html
+
+The public work-sample visuals are sanitized versions derived from real source materials and recurring responsibilities.
 
 ## Privacy
-Client-sensitive material, private lead data, internal documents, and private account information are not published in this repository.
+Client identities, private links, credentials, contact lists, internal communications, and confidential account-level performance data are not published in this repository.
