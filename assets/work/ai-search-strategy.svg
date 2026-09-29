@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760">
+<rect width="1200" height="760" rx="30" fill="#fffdfa"/>
+<text x="62" y="88" font-family="Arial,sans-serif" font-size="32" font-weight="800" fill="#12304a">AI Search &amp; Community Visibility Strategy</text>
+<text x="62" y="124" font-family="Arial,sans-serif" font-size="16" fill="#5f6b7a">Research framework developed around forums, structured content, authority signals, and AI-search discoverability</text>
+<g font-family="Arial,sans-serif">
+<rect x="62" y="170" width="250" height="420" rx="22" fill="#e6f1ed"/><text x="90" y="214" font-size="18" font-weight="700" fill="#12304a">Research</text>
+<text x="90" y="254" font-size="14" fill="#53616b">Map relevant communities</text><text x="90" y="286" font-size="14" fill="#53616b">Track recurring questions</text><text x="90" y="318" font-size="14" fill="#53616b">Study trusted sources</text><text x="90" y="350" font-size="14" fill="#53616b">Identify entity language</text>
+<rect x="332" y="170" width="250" height="420" rx="22" fill="#edf5f8"/><text x="360" y="214" font-size="18" font-weight="700" fill="#12304a">Contribute</text>
+<text x="360" y="254" font-size="14" fill="#53616b">Lead with useful answers</text><text x="360" y="286" font-size="14" fill="#53616b">Use factual structure</text><text x="360" y="318" font-size="14" fill="#53616b">Cite credible sources</text><text x="360" y="350" font-size="14" fill="#53616b">Avoid promotional spam</text>
+<rect x="602" y="170" width="250" height="420" rx="22" fill="#f7f2e8"/><text x="630" y="214" font-size="18" font-weight="700" fill="#12304a">Repurpose</text>
+<text x="630" y="254" font-size="14" fill="#53616b">Turn strong Q&amp;A into content</text><text x="630" y="286" font-size="14" fill="#53616b">Strengthen entity consistency</text><text x="630" y="318" font-size="14" fill="#53616b">Connect community + site</text><text x="630" y="350" font-size="14" fill="#53616b">Build topical depth</text>
+<rect x="872" y="170" width="266" height="420" rx="22" fill="#12304a"/><text x="900" y="214" font-size="18" font-weight="700" fill="#fff">Measure</text>
+<text x="900" y="254" font-size="14" fill="#d4e3ea">Engagement</text><text x="900" y="286" font-size="14" fill="#d4e3ea">Referral visibility</text><text x="900" y="318" font-size="14" fill="#d4e3ea">Brand/entity mentions</text><text x="900" y="350" font-size="14" fill="#d4e3ea">AI-search presence</text>
+<rect x="62" y="622" width="1076" height="70" rx="18" fill="#2d7a67"/><text x="90" y="666" font-size="16" font-weight="700" fill="#fff">Authority grows when useful content is consistent across search, community discussions, and the website.</text>
+</g></svg>
