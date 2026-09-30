@@ -1,0 +1,6 @@
+"Review area","Workflow check","Purpose"
+"Lead source","Check the recorded channel or source.","Keep the enquiry connected to its campaign context."
+"Pipeline stage","Update the stage to match the recorded status.","Make the current state clear."
+"Follow-up notes","Record the contact attempt and next action.","Support consistent follow-up and handoffs."
+"Data quality","Check for missing fields or duplicate entries.","Keep the record usable for review."
+"Reporting","Summarize lead status and follow-up activity in Google Sheets.","Make the next action visible to the team."
