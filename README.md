@@ -1,24 +1,29 @@
-# Eric John Cruz — SEO, Growth & Digital Marketing Portfolio
+# Eric John Cruz — SEO, Search Strategy & Growth Operations
 
-Public portfolio for SEO, growth strategy, digital marketing operations, content, paid search, reporting, email marketing, website implementation, and marketing operations.
+Public portfolio focused on modern search work with a simpler principle: fewer claims, stronger evidence.
 
 ## Live portfolio
 https://ericcruzdigital.github.io/
 
-## Featured professional work
-- Multi-account SEO & growth operations
-- Google Ads campaign management
-- SEO & email performance reporting
-- Keyword strategy & content operations
-- Off-page SEO, citations, backlinks, and AI-search/community research
+## Core areas
+- Multi-account SEO and search operations
+- Keyword, search-intent and competitor research
+- Content strategy and on-page SEO
+- Local and off-page SEO
+- AI-search visibility research
+- Google Ads and landing-page strategy
+- Performance reporting and optimization
+- Marketing operations, QA, SOPs and process improvement
 
-## Featured website project
-https://ericcruzdigital.github.io/islaclean/
+## Selected work
+- Professional SEO operations
+- Google Ads & landing page strategy
+- Search strategy, content & AI discovery
+- Reporting & performance analysis
+- IslaClean live SEO website project
 
 ## Work samples
 https://ericcruzdigital.github.io/evidence.html
 
-The public work-sample visuals are sanitized versions derived from real source materials and recurring responsibilities.
-
 ## Privacy
-Client identities, private links, credentials, contact lists, internal communications, and confidential account-level performance data are not published in this repository.
+Client names, private links, credentials, lead lists, internal communications, and confidential account-level performance data are not published.
