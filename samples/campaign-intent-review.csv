@@ -1,0 +1,6 @@
+Search intent,Decision,Reason
+Service terms,Keep,Queries for the specific service offered.
+Service + location,Keep,Relevant services within the approved service area.
+DIY / how-to queries,Review for exclusion,Separate research traffic from enquiries for a paid service.
+Jobs / training queries,Review for exclusion,Remove intent that does not match the campaign offer.
+Unrelated services,Exclude when irrelevant,Check each term against the business’s actual services.
