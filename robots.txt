@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://ericcruzdigital.github.io/sitemap.xml
