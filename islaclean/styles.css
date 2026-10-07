@@ -293,3 +293,14 @@ input:focus,select:focus,textarea:focus{outline:3px solid rgba(31,111,92,.14);bo
   .cta-band{align-items:flex-start;flex-direction:column}
   h1{font-size:44px}
 }
+
+
+/* Practice site accessibility */
+body{font-family:"Segoe UI",Arial,sans-serif}.skip-link{position:absolute;z-index:60;top:0;left:16px;background:white;padding:12px;transform:translateY(-150%)}.skip-link:focus{transform:translateY(0)}
+:focus-visible{outline:3px solid #a33c0c;outline-offset:4px}.feature-panel :focus-visible{outline-color:#a8e1d1}
+.card-title{font-size:22px;line-height:1.2;letter-spacing:-.03em;margin:0 0 12px}.feature-panel .card-title{color:white}
+.card .kicker{color:#a63c1a}.table-scroll{overflow-x:auto}.table-scroll table{min-width:500px}.breadcrumb a,.prose p a{ text-decoration:underline;text-underline-offset:3px}.form-field{display:grid;gap:7px}
+fieldset{border:0;padding:0;margin:0;min-width:0;display:grid;gap:14px}button:disabled{cursor:not-allowed;opacity:.6}
+@media(max-width:900px){.site-header{position:static}.nav{flex-wrap:wrap;padding:18px 0;gap:15px}.nav-links{width:100%;gap:6px 18px}.nav-links a:not(.nav-cta){display:inline-flex}.nav-links a{min-height:44px;align-items:center;padding-top:8px;padding-bottom:8px}}
+@media(max-width:640px){h1{font-size:clamp(2rem,9vw,2.75rem);overflow-wrap:break-word}.hero-card,.feature-panel{padding:24px}.footer-links a{padding:6px 0}.card-title{font-size:22px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}.btn:hover{transform:none}}
