@@ -27,3 +27,6 @@ document.querySelectorAll('[data-demo-form]').forEach((form) => {
     form.reset();
   });
 });
+
+// Enable the browser-only form only after its submit handler is registered.
+document.querySelectorAll('[data-demo-fields]').forEach(fieldset => { fieldset.disabled = false; });

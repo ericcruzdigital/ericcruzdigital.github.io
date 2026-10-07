@@ -1,0 +1,206 @@
+"""Build the static career pages from shared résumé data and documented work.
+
+Run from any directory with Python 3. The existing CSV excerpts remain unchanged.
+New templates are explicitly labeled; they are not historical client records.
+"""
+from pathlib import Path
+import csv
+import html
+import json
+
+ROOT = Path(__file__).resolve().parents[1]
+BASE = 'https://ericcruzdigital.github.io/'
+VERSION = '20261007-career'
+R = json.loads((ROOT / 'scripts/resume.json').read_text(encoding='utf-8'))
+esc = html.escape
+
+
+def write(path, text):
+    (ROOT / path).parent.mkdir(parents=True, exist_ok=True)
+    (ROOT / path).write_text(text, encoding='utf-8')
+
+
+def page(path, title, description, body, active='', resume=False):
+    url = BASE + ('' if path == 'index.html' else path)
+    person = {'@type': 'Person', '@id': BASE + '#eric', 'name': R['name'], 'alternateName': 'Eric John N. Cruz', 'jobTitle': R['title'], 'url': BASE, 'image': BASE + 'assets/eric-headshot-v2.webp', 'sameAs': [R['linkedin']]}
+    schema = {'@context': 'https://schema.org', '@graph': [person, {'@type': 'ProfilePage' if path in ['index.html', 'resume.html'] else 'WebPage', '@id': url + '#page', 'url': url, 'name': title + ' | Eric John Cruz', 'description': description, 'inLanguage': 'en', 'about': {'@id': BASE + '#eric'}}]}
+    links = [('Work', './#work'), ('Work samples', 'evidence.html'), ('About', './#about'), ('Résumé', 'resume.html')]
+    nav = ''.join(f'<a href="{href}"'+(' aria-current="page"' if label == active else '')+f'>{label}</a>' for label, href in links)
+    write(path, f'''<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{esc(title)} | Eric John Cruz</title>
+<meta name="description" content="{esc(description, quote=True)}">
+<link rel="canonical" href="{url}">
+<meta property="og:type" content="website"><meta property="og:site_name" content="Eric John Cruz">
+<meta property="og:title" content="{esc(title, quote=True)} | Eric John Cruz"><meta property="og:description" content="{esc(description, quote=True)}">
+<meta property="og:url" content="{url}"><meta property="og:image" content="{BASE}assets/eric-headshot-232.jpg"><meta property="og:image:alt" content="Eric John Cruz">
+<meta name="twitter:card" content="summary"><meta name="theme-color" content="#102b35">
+<link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="styles.css?v={VERSION}">
+<script type="application/ld+json">{json.dumps(schema, ensure_ascii=False)}</script>
+</head>
+<body{' class="resume-page"' if resume else ''}>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header"><div class="container nav"><a class="brand" href="./">Eric John Cruz<span>SEO &amp; Digital Marketing Operations</span></a><button class="menu-btn" type="button" aria-controls="site-nav" aria-expanded="false" data-menu-button>Menu</button><nav id="site-nav" class="nav-links" aria-label="Primary">{nav}<a class="nav-contact" href="mailto:{R['email']}">Contact</a></nav></div></header>
+<main id="main">{body}</main>
+<footer class="site-footer"><div class="container footer-inner"><div><strong>Eric John Cruz</strong><span>Philippines · Available for remote work</span></div><div><a href="mailto:{R['email']}">Email</a><a href="{R['linkedin']}">LinkedIn</a><a href="resume.html">Résumé</a><a href="downloads/Eric_John_Cruz_Resume.docx" download>Download Word résumé</a></div></div></footer>
+<script src="script.js?v={VERSION}" defer></script>
+</body></html>
+''')
+
+
+def head(label, title, lead, role, output, tools):
+    return f'''<section class="case-hero"><div class="container"><a class="back-link" href="./#work">Back to selected work</a><p class="eyebrow">{label}</p><h1>{title}</h1><p class="lead">{lead}</p><dl class="case-facts"><div><dt>My role</dt><dd>{role}</dd></div><div><dt>Output</dt><dd>{output}</dd></div><div><dt>Tools &amp; working context</dt><dd>{tools}</dd></div></dl></div></section>'''
+
+
+def section(label, heading, content, alt=False, id=''):
+    return f'<section class="section {"alt" if alt else ""}"'+(f' id="{id}"' if id else '')+f'><div class="container case-grid"><div class="section-intro"><p class="eyebrow">{label}</p><h2>{heading}</h2></div><div class="case-content">{content}</div></div></section>'
+
+
+def steps(items):
+    return '<ol class="steps">'+''.join(f'<li><h3>{a}</h3><p>{b}</p></li>' for a,b in items)+'</ol>'
+
+
+def table(headers, rows, caption):
+    return '<div class="table-scroll" tabindex="0" role="region" aria-label="'+esc(caption, quote=True)+'"><table><caption>'+caption+'</caption><thead><tr>'+''.join('<th scope="col">'+esc(c)+'</th>' for c in headers)+'</tr></thead><tbody>'+''.join('<tr><th scope="row">'+esc(row[0])+'</th>'+''.join('<td>'+esc(c)+'</td>' for c in row[1:])+'</tr>' for row in rows)+'</tbody></table></div>'
+
+
+def sample(file, caption):
+    with (ROOT / 'samples' / file).open(encoding='utf-8-sig', newline='') as f:
+        rows = list(csv.reader(f))
+    return table(rows[0], rows[1:], caption)
+
+
+def downloads(items):
+    return '<div class="sample-links">'+''.join(f'<a href="{path}"'+(' download' if path.endswith(('.csv','.docx')) else '')+f'>{label}</a>' for path,label in items)+'</div>'
+
+
+def endcase(text, path, label):
+    return section('What this demonstrates', 'Work an employer can assess.', '<p>'+text+'</p>'+downloads([(path,label),('evidence.html','Browse all work samples'),('resume.html','View résumé')]), True)
+
+
+# These are new blank templates, not fabricated client records.
+templates = {
+ 'operations-handoff-template.csv': [
+ ['Workstream','Evidence or source link','Finding or task','Next action','Owner','Due date','Status','Blocker','Review note'],
+ ['SEO review','','','','','','','',''],['Content / on-page','','','','','','','',''],['Local SEO / citations','','','','','','','',''],['Reporting','','','','','','','','']
+ ],
+ 'local-seo-review-template.csv': [
+ ['Review area','What to confirm','Evidence or URL','Finding','Next action'],
+ ['Business scope','Confirm real services and approved coverage areas.','','',''],
+ ['Google Business Profile','Review available business information against approved details; record items needing confirmation.','','',''],
+ ['Local keywords','Check service + location intent and business relevance.','','',''],
+ ['Target page','Match the topic to a relevant existing page or document a content need.','','',''],
+ ['Citations','Review existing records for duplicates and inconsistent business information before adding entries.','','',''],
+ ['Follow-up','Record the action, owner and unresolved input needed.','','','']
+ ],
+ 'seo-reporting-review-template.csv': [
+ ['Review area','Source','Date range / comparison','Verified observation','Context or limitation','Recommended action','Owner / follow-up'],
+ ['Search performance','Google Search Console','','','','',''],
+ ['Website performance','GA4','','','','',''],
+ ['Tracked keywords','Ubersuggest','','','','',''],
+ ['Campaign summary','Looker Studio / Google Sheets','','','','','']
+ ]
+}
+for filename, rows in templates.items():
+    with (ROOT/'samples'/filename).open('w',encoding='utf-8',newline='') as f:
+        csv.writer(f).writerows(rows)
+
+keyword = sample('keyword-categorization.csv', 'Anonymized keyword categorization excerpt')
+ads = sample('campaign-intent-review.csv', 'Service-campaign keyword intent review')
+email = sample('email-reporting-excerpt.csv', 'Paired-send email reporting excerpt')
+landing = sample('landing-page-planning-excerpt.csv', 'Landing-page and thank-you-page planning')
+lead = sample('lead-tracking-workflow.csv', 'Lead-tracking workflow excerpt')
+
+work = [
+ ('case-keyword-content.html','Keyword strategy &amp; content','Give search intent a useful destination.','Research and group keywords, review service and location relevance, and map topics to pages.','Keyword categories and content direction.','Service → intent → target page','Research that informs implementation.'),
+ ('case-operations.html','SEO &amp; marketing operations','Keep recurring work moving.','Coordinate content and campaign tasks, check quality, document processes and make follow-ups clear.','Campaign updates, process guides and task handoffs.','Review → owner → next action','Organized work across a remote team.'),
+ ('case-reporting.html','Analytics &amp; reporting','Turn data into a decision.','Check dates and sources, investigate unusual changes and explain what to do next.','SEO updates, monthly reviews and email summaries.','Data → context → recommendation','Performance with a clear next step.'),
+]
+work_html = ''.join(f'<a class="work-row" href="{url}"><span class="work-number">0{i+1}</span><div class="work-copy"><p class="eyebrow">{label}</p><h3>{title}</h3><p>{desc}</p><p class="result"><strong>Output:</strong> {output}</p></div><div class="work-preview"><span>{flow}</span><strong>{proof}</strong><small>Read the case study and inspect the sample</small></div></a>' for i,(url,label,title,desc,output,flow,proof) in enumerate(work))
+tools_html = ''.join(f'<div><h3>{esc(a)}</h3><p>{esc(b)}</p></div>' for a,b in R['tools'])
+
+page('index.html', R['title'], 'Eric John Cruz: hands-on SEO, local search, content, analytics and marketing operations. Explore work samples, website projects and a downloadable résumé.', f'''
+<section class="hero"><div class="container hero-grid"><div><p class="eyebrow">Eric John Cruz · Philippines · Remote</p><h1>SEO &amp; Digital<br><em>Marketing Operations.</em></h1><p class="lead">I turn search research and campaign data into useful content, clear reports and organized next actions.</p><p class="hero-detail">Hands-on SEO and local search, with the coordination to keep website, CRM and recurring marketing work moving.</p><div class="actions"><a class="btn primary" href="#work">View selected work</a><a class="btn outline" href="resume.html">View résumé</a></div><div class="hero-links"><a href="evidence.html">Work samples &amp; evidence</a><a href="downloads/Eric_John_Cruz_Resume.docx" download>Download Word résumé</a></div></div><figure class="portrait"><img src="assets/eric-headshot-v2.webp" width="232" height="232" alt="Eric John Cruz" fetchpriority="high"><figcaption><strong>Eric John Cruz</strong><span>Available for remote SEO, digital marketing and operations roles.</span></figcaption></figure></div></section>
+<section class="capability-band" aria-label="Core capabilities"><div class="container capability-grid"><div><h2>Search &amp; content</h2><p>Keywords, intent, on-page work and local SEO.</p></div><div><h2>Data &amp; decisions</h2><p>Search Console, GA4, reporting and follow-up actions.</p></div><div><h2>Execution &amp; coordination</h2><p>CMS, CRM, process guides and remote workflows.</p></div></div></section>
+<section class="section selected" id="work"><div class="container"><div class="section-heading"><div><p class="eyebrow">Selected work</p><h2>What I do. What I produce.</h2></div><a class="text-link" href="evidence.html">Inspect the work samples</a></div><div class="work-list">{work_html}</div>
+<div class="related-grid"><a href="case-local-seo.html"><p class="eyebrow">Local SEO</p><h3>Connect services, locations and pages.</h3><p>Google Business Profile support, local intent and citation coordination.</p><span class="text-link">Review the local SEO workflow</span></a><a href="case-google-ads.html"><p class="eyebrow">Campaigns &amp; CRM</p><h3>Connect an enquiry to its next step.</h3><p>Google Ads planning, landing-page content and GoHighLevel lead tracking.</p><span class="text-link">Review campaign and CRM samples</span></a></div>
+<a class="project-strip" href="case-islaclean.html"><div><p class="eyebrow">Independent website project</p><h3>IslaClean Palawan</h3><p>10 browsable pages showing service-page structure, on-page SEO and a demo enquiry flow. Built with AI assistance and checked in the browser.</p></div><span>View live project</span></a></div></section>
+<section class="section alt" id="about"><div class="container about-grid"><div><p class="eyebrow">How I work</p><h2>Hands-on with the details.<br>Clear about the next step.</h2></div><div><p class="large-copy">My freelance work combines SEO execution with the reporting, documentation and coordination that help a remote team deliver consistently.</p><p>I research search intent, review performance, work with WordPress and Squarespace, and track lead activity in GoHighLevel. I also prepare process guides and onboarding materials, support delegation, and review work before it is handed over.</p><p>My earlier progression from customer support to Subject Matter Expert involved coaching, quality monitoring and troubleshooting. That experience helps me work within established processes, respond to feedback and make unfamiliar workflows easier to follow.</p><p>I hold a BS in Electrical Engineering and am a Registered Electrical Engineer. I bring that analytical foundation to search and marketing work.</p><a class="text-link" href="resume.html">Read my experience</a></div></div></section>
+<section class="section" id="ai-workflow"><div class="container case-grid"><div class="section-intro"><p class="eyebrow">AI-assisted work</p><h2>Use the assistance.<br>Own the judgment.</h2></div><div class="case-content"><p>I use ChatGPT, Claude and Gemini to support research, content planning, drafting and summarization. The useful output is a reviewed piece of work, not an unchecked response.</p>{steps([('Start with the source','Use the brief, business scope and source material to define the task.'),('Review and refine','Check factual claims, intent, dates and recommendations against the source. Edit for clarity and remove unsupported conclusions.'),('Validate the output','Check links, content and implementation before handoff or publication. My independent website project shows this approach in a browsable deliverable.')])}<a class="text-link" href="case-islaclean.html">See the AI-assisted website project</a></div></div></section>
+<section class="section alt" id="tools"><div class="container"><p class="eyebrow">Tools &amp; platforms</p><h2>A practical toolkit for the work.</h2><div class="approach-grid">{tools_html}</div></div></section>
+<section class="contact-section" id="contact"><div class="container contact-grid"><div><p class="eyebrow">Let’s work together</p><h2>Search, content and operations<br>with a clear next action.</h2><p>Based in the Philippines. Available for remote SEO, digital marketing, reporting and marketing operations roles.</p></div><div class="contact-links"><a href="mailto:{R['email']}">{R['email']}</a><a href="{R['linkedin']}">Connect on LinkedIn</a><a href="downloads/Eric_John_Cruz_Resume.docx" download>Download Word résumé</a></div></div></section>
+''')
+
+page('case-operations.html','SEO & Marketing Operations','How Eric John Cruz coordinates recurring SEO work, documents processes, reviews quality and turns campaign findings into clear task handoffs.',
+ head('Professional work · Operations','Keep recurring work moving.','A campaign review is useful when someone can act on it. My operations work connects SEO findings, content tasks, documentation and follow-ups across remote workflows.','Campaign coordination, process documentation and quality review','Recurring updates, process guides, onboarding materials and follow-up actions','Basecamp, Google Docs and Sheets, Slack, ClickUp; Otter.ai for meeting notes')+
+ section('Context','Many tasks. One clear handoff.','<p>Recurring SEO work involves different services, locations, reporting dates and unresolved inputs. A task can appear active while its owner, evidence or next step remains unclear.</p><p>I review the campaign scope, organize content, citation and press release tasks, and record the action needed. I support delegation and quality review, keeping the source and status visible for the next person.</p>')+
+ section('My contribution','Make the workflow repeatable.',steps([('Review the scope','Check the service, location, target keyword or URL, reporting dates and required output before assigning follow-up work.'),('Document the process','Prepare process guides and onboarding materials that explain the task, source references and checks required before handoff.'),('Coordinate the follow-up','Track the action, owner, status and blocker. Surface missing information so the next step can be resolved.'),('Review the deliverable','Check date consistency, keyword and URL relevance, duplicate citation records and whether the update is supported by its sources.')]),True)+
+ section('Portfolio template','A handoff someone can pick up.',table(['Field','What it makes clear'],[('Source / evidence','Where the task or finding came from.'),('Finding + next action','What needs attention and what should happen next.'),('Owner + due date','Who is handling it and the agreed timing.'),('Status + blocker','What is complete and what input is still needed.'),('Review note','What was checked before handoff.')],'Task handoff structure')+'<p class="sample-note">New blank portfolio template based on the recurring coordination workflow described here. It is not an exported client tracker or a historical onboarding document.</p>'+downloads([('samples/operations-handoff-template.csv','Download handoff template (CSV)')]))+
+ section('Documentation &amp; quality','A short review before delivery.','<ul class="checklist-copy"><li>Confirm the task scope and source material.</li><li>Use the correct dates, approved services and relevant locations.</li><li>Check the target keyword, destination URL and completed output.</li><li>Record unresolved inputs and the next action.</li><li>Give the next person enough context to continue the work.</li></ul><p>This is a public summary of my review approach. Private training and client documents are not included.</p>',True)+
+ endcase('Process documentation, consistent quality checks and usable handoffs. Recurring work stays connected to clear sources, owners and next actions.','case-reporting.html','See the separate reporting case study'))
+
+page('case-keyword-content.html','Keyword Research & Content Planning','Keyword categorization, search intent and keyword-to-page mapping by Eric John Cruz, with an anonymized downloadable work sample.',
+ head('Professional work · Search &amp; content','Give search intent a useful destination.','I turn keyword research into content direction by checking the business offer, the search intent and the location before choosing a target page.','Keyword research, categorization, mapping and content coordination','Keyword groups, page mapping and references for content and citation work','Ubersuggest, Google Search Console, Google Sheets and Docs')+
+ section('Context','A keyword list needs a purpose.','<p>A long export does not explain which searches fit the business or where each topic belongs. Similar phrases can create repetitive page ideas if intent is not checked first.</p><p>I review the service and coverage area, group related searches, and connect each topic to a useful destination.</p>')+
+ section('Existing work excerpt','From terms to categories.',keyword+'<p class="sample-note">Adapted from existing keyword categorization work. Location names are replaced with [location]; client identifiers, rankings and research metrics are removed.</p>'+downloads([('samples/keyword-categorization.csv','Download keyword excerpt (CSV)')]),True)+
+ section('My decisions','Fit, intent, destination.',steps([('Check business fit','Keep terms that match actual services and approved locations. Query relevance matters before a term becomes a target.'),('Group by intent','Separate core services, supporting topics and local searches. Review search results before treating similar phrases as different page opportunities.'),('Map the page','Connect each focus keyword to a relevant service page or article. Use the mapping to guide content and on-page optimization.'),('Support implementation','Give content and citation work a consistent keyword and URL reference. Recheck the destination when content changes.')]))+
+ endcase('Research that can be used in content planning and recurring SEO execution. The public excerpt makes the categorization decisions visible.','case-local-seo.html','See how local intent fits the workflow'))
+
+page('case-local-seo.html','Local SEO & Google Business Profile Support','Eric John Cruz’s local SEO workflow: Google Business Profile support, service-area relevance, local keywords, page planning and citation coordination.',
+ head('Professional work · Local SEO','Connect the service to the right location.','My local SEO work brings together Google Business Profile support, service and location relevance, keyword planning and citation coordination.','Local keyword and business-information review; content and citation coordination','Local topic direction, relevant target pages and documented follow-ups','Google Business Profile, Google Search Console, Ubersuggest, Google Sheets; WordPress and Squarespace')+
+ section('Context','Local relevance starts with the business.','<p>A location keyword is useful only when the business actually serves that area. I check service and coverage information before using a term in content or off-page work.</p><p>Google Business Profile work and citation coordination fit into that same review: keep business information consistent and flag details that need confirmation.</p>')+
+ section('My workflow','Check the scope before the task.',steps([('Confirm services and coverage','Use approved business information to distinguish relevant locations from places the business does not serve.'),('Review local intent','Group service + location searches and check whether the existing page answers the need.'),('Connect the destination','Use an appropriate service page or article for content and citation work; record a content need when the destination is missing.'),('Review existing records','Check for duplicate citation work, inconsistent business information and unresolved inputs. Document the next action.')]),True)+
+ section('Evidence &amp; practice','Inspect the decisions and the structure.','<p>The <a href="case-keyword-content.html">keyword categorization excerpt</a> shows service and location grouping. The <a href="islaclean/service-area.html">IslaClean service-area page</a> is a separate, fictional implementation example that connects a location with related service pages.</p><p>The blank review template below shows how I organize the checks. It is newly prepared for this portfolio; it does not contain client profile records or local ranking results.</p>'+downloads([('samples/local-seo-review-template.csv','Download local SEO review template (CSV)'),('case-islaclean.html','View the independent website case study')]))+
+ endcase('Local intent, business-information consistency and organized implementation support. The examples show how I check relevance and connect the review to a usable next action.','evidence.html#local','Inspect local SEO evidence'))
+
+page('case-reporting.html','SEO Analytics & Performance Reporting','Eric John Cruz reviews Search Console, GA4 and campaign data, checks context and prepares reports with recommendations and clear next actions.',
+ head('Professional work · Analytics &amp; reporting','What changed. Why it matters. What comes next.','I review search, website and email performance, then prepare an update that helps a client or team decide what to do next.','Data review, investigation, interpretation and report preparation','Weekly SEO updates, monthly reviews, comparison tables and summary emails','Google Search Console, GA4, Ubersuggest, Looker Studio, Brevo and Google Sheets')+
+ section('Context','A metric needs context.','<p>A ranking movement, traffic change or email open count is not a complete explanation. Comparisons need the right dates, source and campaign context before they can support a recommendation.</p><p>I check the data, investigate unusual changes and write a concise finding with an appropriate follow-up.</p>')+
+ section('My process','From observation to action.',steps([('Confirm the comparison','Check the date range, source and comparison period. Confirm what is actually being measured before summarizing movement.'),('Read the signals together','Use search performance, website behavior and campaign activity as context. Keep an enquiry, click and sale distinct.'),('Investigate before concluding','Review tracking gaps, unusual traffic, ranking or indexing issues and page relevance when a result needs attention.'),('Write the next action','Explain the verified observation, relevant limitation and recommended follow-up. Record the owner or input needed to continue.')]),True)+
+ section('Existing work excerpt','Compare the sends. Add context.',email+'<p class="sample-note">Reformatted from paired newsletter and follow-up reporting. Account figures, client details and contact records are omitted. Recorded opens are supporting context, not proof of buying intent.</p>'+downloads([('samples/email-reporting-excerpt.csv','Download email reporting excerpt (CSV)')]))+
+ section('Portfolio template','Separate the finding from the recommendation.',table(['Part of the review','Purpose'],[('Source + date range','Make the comparison traceable.'),('Verified observation','State only what the available figures show.'),('Context or limitation','Record a tracking gap, changed audience or other constraint.'),('Recommended action','Connect the finding to a justified follow-up.'),('Owner / follow-up','Make the handoff usable.')],'SEO reporting review structure')+'<p class="sample-note">New blank template illustrating the reporting structure. Empty fields are intentional; no client performance figures have been invented.</p>'+downloads([('samples/seo-reporting-review-template.csv','Download SEO reporting template (CSV)')]),True)+
+ endcase('Analytical judgment, source checking and clear communication. The examples connect verified observations to recommendations and usable handoffs.','case-operations.html','See how findings become follow-up work'))
+
+page('case-google-ads.html','Google Ads Planning, Landing Pages & CRM','Service-campaign keyword planning, landing-page content and GoHighLevel lead-tracking work by Eric John Cruz, with anonymized downloadable samples.',
+ head('Professional work · Campaigns &amp; CRM','Connect the enquiry to its next step.','My Google Ads work includes service-focused keyword and landing-page planning. My GoHighLevel work keeps lead sources, pipeline stages and follow-up notes usable for the next action.','Campaign keyword review, landing-page content planning and lead tracking','Campaign planning excerpts, page-content direction and a CRM review workflow','Google Ads, GoHighLevel (GHL), Google Sheets and Slack')+
+ section('Context','One offer across the journey.','<p>A service campaign needs consistency between what the business offers, who is searching, where it operates and what the landing page says. After an enquiry, a usable record helps the team follow up.</p><p>My planning starts with the service, coverage area and desired enquiry, then connects the keywords, page content and lead workflow.</p>')+
+ section('Existing work excerpt','Review intent before targeting.',ads+'<p class="sample-note">Condensed from service-campaign planning with client details removed. Research, jobs or training terms are reviewed against the specific offer before exclusion.</p>'+downloads([('samples/campaign-intent-review.csv','Download campaign intent excerpt (CSV)')]),True)+
+ section('Page content','Carry the offer onto the page.',landing+'<p class="sample-note">Adapted from client-answer review and landing-page / thank-you-page content planning. Business names, offers and contact details are omitted.</p>'+downloads([('samples/landing-page-planning-excerpt.csv','Download page-planning excerpt (CSV)')]))+
+ section('CRM workflow','Keep the lead record usable.',lead+'<p class="sample-note">Public workflow summary with no live CRM records or personal data. This shows practical tracking and follow-up work, not advanced CRM architecture or automation engineering.</p>'+downloads([('samples/lead-tracking-workflow.csv','Download lead-tracking workflow (CSV)')]),True)+
+ endcase('Connected planning across search intent, content and follow-up. The visible evidence supports campaign planning and practical CRM operations; private budgets, account results and paid-media performance claims are not published.','evidence.html#campaigns','Browse the campaign samples'))
+
+page('case-islaclean.html','IslaClean Palawan: Website & On-Page SEO Project','A fictional 10-page service website built by Eric John Cruz with AI assistance, showing page architecture, on-page SEO, internal links and a demo enquiry flow.',
+ head('Independent project · Website implementation','IslaClean Palawan.','A fictional local-service website with ten browsable pages. It demonstrates how I connect service intent, content, page structure and a clear next step.','AI-assisted HTML, CSS and JavaScript implementation and review','A live website with distinct service pages and a browser-only demo form','HTML, CSS, JavaScript and GitHub; AI-assisted drafting and implementation')+
+ section('Live implementation','Open it. Browse it. Test it.','<p>The project is a working website rather than a design mockup. Start with a service page, follow the related content and try the demo enquiry path.</p>'+downloads([('islaclean/','Open the live project'),('islaclean/contact.html','Try the demo form')])+'<figure class="site-shot"><a href="islaclean/"><img src="assets/islaclean-preview.webp" width="1365" height="900" loading="lazy" alt="IslaClean homepage showing separate cleaning services and a clear enquiry path"></a><figcaption>Independent practice brand. No client affiliation or real lead collection.</figcaption></figure>')+
+ section('Decisions &amp; outputs','Structure around the visitor’s task.',table(['Decision','Implementation','What it demonstrates'],[('Separate service intents','House cleaning, deep cleaning and move-in / move-out pages.','Page purpose and useful content organization.'),('Explain local relevance','A Puerto Princesa service-area page linked to services.','Service and location context without repetitive location pages.'),('Connect information to action','A cleaning guide linked to relevant service content.','Contextual internal linking and content journeys.'),('Make each page identifiable','Distinct titles, descriptions and headings.','On-page SEO fundamentals.'),('Test the enquiry path','A browser-only form and local dataLayer events.','Basic event handling and interaction checks.')],'Website implementation decisions'),True)+
+ section('Working method','AI assistance with checks.','<p>The project uses AI assistance for drafting and implementation. The resulting pages are reviewed for content fit, page purpose, navigation, links and browser behavior.</p><p>The project demonstrates practical website implementation, content decisions and browser verification.</p>')+
+ section('Scope &amp; verification','A testable example with clear limits.','<p>The ten pages cover Home, Services, three individual services, Service Area, About, Blog, a checklist article and Contact. The form clears its fields and shows confirmation without transmitting personal information.</p><p>CTA and form events can be inspected in the browser’s local dataLayer. A production GA4 conversion setup is not claimed. The fictional brand’s pages remain noindex and are excluded from the portfolio sitemap.</p>',True)+
+ endcase('Comfort with website structure, content, basic code and verification. The project provides visible implementation evidence alongside professional CMS experience with WordPress and Squarespace.','case-local-seo.html','See the local SEO workflow'))
+
+page('evidence.html','SEO, Reporting & Marketing Operations Work Samples','Inspect Eric John Cruz’s anonymized keyword, campaign and reporting excerpts, labeled workflow templates and live independent website project.',
+ head('Work samples &amp; evidence','Inspect the work behind the résumé.','Start with the skill you want to assess. Each sample explains what I did, what the output shows and how it relates to the work.','Research, reporting, coordination, content planning and website implementation','Five existing excerpts, three blank workflow templates and a live website','Tools and context are identified in the linked case studies')+
+ '<nav class="sample-index container" aria-label="Work sample categories"><a href="#keywords">Keywords &amp; content</a><a href="#local">Local SEO</a><a href="#operations">Operations</a><a href="#reporting">Reporting</a><a href="#campaigns">Campaigns &amp; CRM</a><a href="#website">Website project</a></nav>'+
+ '<div class="container evidence-note"><p><strong>How to read the evidence:</strong> Existing excerpts are condensed or reformatted from work, with client details and private figures removed. New blank templates illustrate my working process and are labeled as templates. IslaClean is an independent fictional project.</p></div>'+
+ section('Existing work excerpt','Keyword research &amp; content mapping.','<p><strong>My work:</strong> Research and categorize terms by business fit, service, intent and location, then connect topics to relevant pages.</p>'+keyword+'<p class="sample-note">Shows categorization decisions. Location names and private research metrics are removed.</p>'+downloads([('samples/keyword-categorization.csv','Download keyword excerpt (CSV)'),('case-keyword-content.html','Read keyword strategy case study')]),id='keywords')+
+ section('Workflow template + implementation','Local SEO.','<p><strong>My work:</strong> Support Google Business Profile work, review service and location relevance, and coordinate citations and target-page references.</p><p><strong>Inspect:</strong> A new blank local SEO review checklist, the service/location categorization above, and the fictional <a href="islaclean/service-area.html">IslaClean service-area page</a>. The template covers scope, profile information, keywords, target pages, existing citations and follow-up.</p><p class="sample-note">The checklist is a portfolio template, not a client profile export. The live page is a practice implementation, not evidence of local ranking gains.</p>'+downloads([('samples/local-seo-review-template.csv','Download local SEO template (CSV)'),('case-local-seo.html','Read local SEO case study')]),True,'local')+
+ section('Workflow template','Marketing operations &amp; coordination.','<p><strong>My work:</strong> Coordinate recurring tasks, prepare process and onboarding guides, support delegation and review quality before handoff.</p>'+table(['Handoff fields','Why they matter'],[('Source, finding, next action','Give the task a traceable starting point.'),('Owner, due date, status','Make the responsibility and progress visible.'),('Blocker, review note','Keep unresolved inputs and checks clear.')],'Operations handoff template')+'<p class="sample-note">New blank template based on the described workflow. Private training documents and historical task records are not reproduced.</p>'+downloads([('samples/operations-handoff-template.csv','Download handoff template (CSV)'),('case-operations.html','Read operations case study')]),id='operations')+
+ section('Existing excerpt + workflow template','Analytics &amp; reporting.','<p><strong>My work:</strong> Review data, verify comparisons, investigate changes and write a finding with a next action.</p>'+email+'<p class="sample-note">Existing email-review excerpt with account figures removed. The separate SEO reporting template is newly prepared and intentionally blank.</p>'+downloads([('samples/email-reporting-excerpt.csv','Download email excerpt (CSV)'),('samples/seo-reporting-review-template.csv','Download SEO reporting template (CSV)'),('case-reporting.html','Read reporting case study')]),True,'reporting')+
+ section('Existing work excerpts','Campaigns, landing pages &amp; CRM.','<p><strong>My work:</strong> Review service-campaign keyword intent, prepare landing-page and thank-you-page content, and track lead sources, stages and follow-up notes in GoHighLevel.</p>'+ads+'<details class="sample-detail"><summary>View landing-page planning excerpt</summary>'+landing+'</details><details class="sample-detail"><summary>View lead-tracking workflow</summary>'+lead+'</details><p class="sample-note">Condensed planning and workflow excerpts. No account budgets, private performance figures or live lead records are included.</p>'+downloads([('samples/campaign-intent-review.csv','Download campaign excerpt (CSV)'),('samples/landing-page-planning-excerpt.csv','Download page-planning excerpt (CSV)'),('samples/lead-tracking-workflow.csv','Download lead workflow (CSV)'),('case-google-ads.html','Read campaign and CRM case study')]),id='campaigns')+
+ section('Independent project','Website implementation.','<p><strong>My work:</strong> AI-assisted HTML, CSS and JavaScript implementation for IslaClean Palawan, a fictional local-service website.</p><p><strong>Inspect:</strong> Ten pages, service and local content, unique metadata, contextual links and a browser-only demo form. The project shows practical implementation and review, not client campaign results.</p>'+downloads([('islaclean/','Open live website'),('case-islaclean.html','Read website case study'),('resume.html','View résumé')]),True,'website'),active='Work samples')
+
+resume_body = f'''<section class="resume-shell container"><div class="resume-toolbar"><a class="btn primary" href="downloads/Eric_John_Cruz_Resume.docx" download>Download Word résumé</a><button class="btn" type="button" data-print>Print / Save as PDF</button><a class="text-link" href="evidence.html">View supporting work</a></div><div class="resume-heading"><p class="eyebrow">Résumé</p><h1>{esc(R['name'])}</h1><p class="lead">{esc(R['title'])}</p><p>{esc(R['location'])}<br><a href="mailto:{R['email']}">{R['email']}</a> · <a href="{R['linkedin']}">linkedin.com/in/eric-john-cruz-ree</a><br><a href="{BASE}">ericcruzdigital.github.io</a></p></div><div class="resume-content"><section><h2>Professional Summary</h2><p>{esc(R['summary'])}</p></section><section><h2>Professional Experience</h2><article><div class="resume-role"><h3>{esc(R['role'])}</h3><span>{esc(R['employment'])}</span></div><ul>{''.join('<li>'+esc(t)+'</li>' for t in R['bullets'])}</ul></article><article><div class="resume-role"><h3>{esc(R['support_role'])}</h3><span>{esc(R['support_employment'])}</span></div><p>{esc(R['support_text'])}</p></article></section><section><h2>Selected Work</h2><ul>{''.join('<li><a href="'+w['path']+'">'+esc(w['label'])+':</a> '+esc(w['text'])+'</li>' for w in R['work'])}</ul></section><section><h2>Skills &amp; Tools</h2>{''.join('<p><strong>'+esc(a)+':</strong> '+esc(b)+'</p>' for a,b in R['tools'])}</section><section><h2>Education &amp; Credential</h2><p>{esc(R['education'])}<br>{esc(R['credential'])}</p></section></div></section>'''
+page('resume.html','SEO & Digital Marketing Operations Résumé','Eric John Cruz’s résumé: freelance SEO, local search, analytics, CMS, CRM and marketing operations experience. Download the ATS-friendly Word document.',resume_body,active='Résumé',resume=True)
+
+pages = ['','case-operations.html','case-keyword-content.html','case-local-seo.html','case-google-ads.html','case-reporting.html','case-islaclean.html','evidence.html','resume.html']
+write('sitemap.xml','<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'+''.join(f'  <url><loc>{BASE+p}</loc></url>\n' for p in pages)+'</urlset>\n')
+write('samples/README.md','''# Work sample provenance
+
+The five original CSV excerpts are preserved: keyword categorization, campaign intent, landing-page planning, lead-tracking workflow and email reporting. They are condensed, anonymized or reformatted from existing work. They are not complete client exports or performance datasets.
+
+Three additional CSVs are newly prepared blank portfolio templates: operations handoff, local SEO review and SEO reporting review. They illustrate the processes described in the case studies. They do not represent completed client assignments, actual account metrics or historical tracker records.
+
+Client names, lead records, account information and private figures must not be added to public samples.
+''')
+print('Built 9 career pages, 3 labeled templates and sitemap from shared résumé data.')

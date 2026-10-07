@@ -7,12 +7,11 @@
   <meta name="description" content="Demo contact form for the fictional IslaClean Palawan practice site. No information is transmitted or stored.">
   <meta name="robots" content="noindex, nofollow">
   <link rel="canonical" href="https://ericcruzdigital.github.io/islaclean/contact.html">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=20261007-career">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
 </head>
 <body>
+  <a class="skip-link" href="#main">Skip to content</a>
   <div class="practice-bar">Practice project only · Fictional service business · No client affiliation</div>
   
   <header class="site-header">
@@ -23,11 +22,11 @@
       </a>
       <nav class="nav-links" aria-label="Primary">
         <a href="index.html" class="">Home</a><a href="services.html" class="">Services</a><a href="service-area.html" class="">Service Area</a><a href="about.html" class="">About</a><a href="blog.html" class="">Blog</a>
-        <a class="nav-cta active" href="contact.html" data-track="header_contact">Contact</a>
+        <a class="nav-cta active" aria-current="page" href="contact.html" data-track="header_contact">Contact</a>
       </nav>
     </div>
   </header>
-  <main>
+  <main id="main">
   <section class="section">
     <div class="container split">
       <div>
@@ -38,20 +37,21 @@
         <div class="note">No form submission is sent to a server, email inbox, CRM, or third party.</div>
       </div>
       <div class="card">
-        <form data-demo-form="cleaning_request">
+        <noscript><p>The demo form requires JavaScript. No information can be submitted while it is disabled.</p></noscript>
+        <form data-demo-form="cleaning_request"><fieldset disabled data-demo-fields>
           <label>Name<input type="text" name="name" placeholder="Demo visitor" required></label>
-          <label>Service
-            <select name="service" required>
+          <div class="form-field"><label for="demo-service">Service</label>
+            <select id="demo-service" name="service" required>
               <option value="">Choose a service</option>
               <option>House Cleaning</option>
               <option>Deep Cleaning</option>
               <option>Move-In / Move-Out Cleaning</option>
             </select>
-          </label>
+          </div>
           <label>Message<textarea name="message" rows="5" placeholder="This is a demo message."></textarea></label>
           <button class="btn primary" type="submit" data-track="contact_form_submit_button">Submit demo request</button>
           <div class="form-status" data-form-status role="status" aria-live="polite"></div>
-        </form>
+        </fieldset></form>
       </div>
     </div>
   </section></main>
@@ -63,12 +63,13 @@
         <p>This is a fictional local-service brand built by Eric John N. Cruz as an independent SEO and web implementation practice project. It is not a real cleaning company and does not collect leads.</p>
       </div>
       <div class="footer-links">
+        <a href="../case-islaclean.html">Back to Eric’s portfolio</a>
         <a href="services.html">Services</a>
         <a href="blog.html">Blog</a>
         <a href="contact.html">Demo contact</a>
       </div>
     </div>
   </footer>
-  <script src="script.js"></script>
+  <script src="script.js?v=20261007-career"></script>
 </body>
 </html>
