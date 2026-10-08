@@ -42,11 +42,14 @@ jobs:
             git push origin "HEAD:$GITHUB_REF_NAME"
           fi
       - name: Build and render the Word resume
+        id: render
         run: |
           node scripts/build-resume.cjs
           python scripts/qa/render_docx.py downloads/Eric_John_Cruz_Resume.docx --output_dir qa-output/resume --emit_pdf --dpi 140 --verbose
-          python scripts/check-resume.py
+      - name: Compare Word and online resume facts
+        run: python scripts/check-resume.py
       - name: Verify desktop mobile accessibility links and downloads
+        if: ${{ !cancelled() && steps.render.outcome == 'success' }}
         run: node scripts/check-site.cjs
       - name: Preserve the validated Word file
         run: |

@@ -50,7 +50,10 @@ info = subprocess.check_output(["pdfinfo", str(pdf)], text=True)
 pages = int(re.search(r"Pages:\s+(\d+)", info).group(1))
 assert 1 <= pages <= 2, "Resume exceeds two pages"
 extracted = subprocess.check_output(["pdftotext", str(pdf), "-"], text=True)
-normalize = lambda s: re.sub(r"\s+", " ", re.sub(r"(?<=\w)-\s*\n\s*(?=\w)", "-", s)).strip()
+# PDF extraction may remove a hyphen at a wrapped line. OOXML above is checked verbatim.
+normalize = lambda s: re.sub(r"[\s\u00ad\-\u2010\u2011]+", "", s)
+(root / "qa-output/resume/rendered-text.txt").write_text(extracted)
+
 for item in expected:
     assert normalize(item) in normalize(extracted), "Missing rendered text: " + item
 assert len(list(pdf.parent.glob("page-*.png"))) == pages
