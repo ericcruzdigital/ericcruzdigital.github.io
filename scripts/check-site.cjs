@@ -1,5 +1,5 @@
 // Browser checks for the built static site. Use --live after GitHub Pages deploys.
-// Dependencies: playwright and axe-core. Browser: installed Microsoft Edge.
+// Dependencies: playwright and axe-core. Set CAREER_QA_BROWSER_CHANNEL to use an installed browser.
 const fs=require('fs'),path=require('path'),http=require('http'),assert=require('assert/strict');
 const root=path.resolve(__dirname,'..');
 const dep=process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES||path.resolve(path.dirname(process.execPath),'../node_modules');
@@ -18,7 +18,7 @@ const failures=(label,message)=>report.failures.push({label,message});
  try{
   if(!live)await new Promise(r=>server.listen(0,'127.0.0.1',r));
   const base=live?'https://ericcruzdigital.github.io/':`http://127.0.0.1:${server.address().port}/`;
-  browser=await chromium.launch({channel:'msedge',headless:true});
+  browser=await chromium.launch({...(process.env.CAREER_QA_BROWSER_CHANNEL?{channel:process.env.CAREER_QA_BROWSER_CHANNEL}:{}),headless:true});
   const context=await browser.newContext({reducedMotion:'reduce'});
   const page=await context.newPage();
   page.on('pageerror',e=>failures('JavaScript',e.message));
@@ -58,7 +58,7 @@ const failures=(label,message)=>report.failures.push({label,message});
      report.accessibility.push({file,width,violations});
      for(const v of violations)failures(`${file}@${width}`,`axe ${v.id}: ${JSON.stringify(v.nodes)}`);
     }
-    if(['index.html','resume.html','evidence.html','case-local-seo.html','case-operations.html'].includes(file)&&(width===1365||width===390))await page.screenshot({path:path.join(output,`${live?'live-':''}${file.replace('.html','')}-${width}.png`),fullPage:file!=='index.html'});
+    if(['index.html','resume.html','evidence.html','case-local-seo.html','case-operations.html','case-content-publishing.html'].includes(file)&&(width===1365||width===390))await page.screenshot({path:path.join(output,`${live?'live-':''}${file.replace('.html','')}-${width}.png`),fullPage:file!=='index.html'});
    }
    report.viewports.push(width);console.log(`Checked ${pages.length} pages at ${width}px`);
   }
