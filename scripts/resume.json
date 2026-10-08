@@ -5,31 +5,58 @@
   "email": "cruzericjohn@gmail.com",
   "website": "https://ericcruzdigital.github.io/",
   "linkedin": "https://www.linkedin.com/in/eric-john-cruz-ree/",
-  "summary": "SEO and digital marketing professional combining hands-on search and content work with reporting and campaign coordination. Uses Google Search Console, GA4, CMS platforms and CRM tools to connect findings with next actions. Documents processes, supports quality review and remote collaboration, and uses AI-assisted research and drafting with manual verification. Brings troubleshooting and coaching experience to new systems and workflows.",
+  "summary": "SEO and digital marketing professional combining keyword research, content publishing and local search with analytics and campaign coordination. Turns source data into clear reports and next actions, works with CMS and CRM platforms, and documents repeatable processes. Uses AI-assisted research and drafting with manual verification.",
   "role": "Digital Marketing & SEO Operations",
-  "employment": "Freelance | February 2023–Present",
+  "employment": "Freelance | February 2023–Present | Current SEO engagement: part-time",
   "bullets": [
-    "Research and categorize keywords by service, search intent and location; map topics to relevant pages and support on-page content optimization.",
-    "Support local SEO through Google Business Profile work, service-area relevance checks, and citation and backlink coordination.",
-    "Analyze search, website and campaign data using Google Search Console, GA4, Ubersuggest and Looker Studio; investigate ranking or indexing issues and document next actions.",
-    "Prepare weekly SEO updates, monthly reviews and email performance summaries; check dates, source data and conclusions before delivery.",
-    "Coordinate recurring content and campaign tasks, track owners and blockers, and create process guides and onboarding materials to support delegation and quality review.",
-    "Work with WordPress and Squarespace; prepare Google Ads keyword and landing-page plans and track lead sources, pipeline stages and follow-up notes in GoHighLevel."
+    "Research and categorize keywords by service, intent and location; map topics to relevant pages and support on-page content optimization.",
+    "Support Google Business Profile work, service-area relevance checks, and citation and backlink coordination.",
+    "Review Search Console, GA4, Ubersuggest and Looker Studio data; investigate ranking or indexing issues and document next actions.",
+    "Prepare SEO updates, monthly reviews and email summaries; verify dates, source data and conclusions before delivery.",
+    "Research blog topics, prepare material for client review, implement requested revisions and publish approved posts on client websites.",
+    "Coordinate recurring tasks, track owners and blockers, and prepare process guides and onboarding materials for handoffs and quality review.",
+    "Work with WordPress and Squarespace; support Google Ads keyword and landing-page planning, and track lead sources, stages and follow-up notes in GoHighLevel."
   ],
   "support_role": "Subject Matter Expert / Customer Support",
   "support_employment": "Foundever | August 2020–March 2023",
   "support_text": "Progressed to Subject Matter Expert in April 2021. Coached colleagues, monitored quality, handled escalations, analyzed performance and prepared reports and process guidance.",
   "work": [
-    {"label":"SEO, reporting & operations", "text":"Keyword mapping, campaign reviews and follow-up workflows; anonymized excerpts and clearly labeled templates.", "path":"evidence.html"},
-    {"label":"IslaClean Palawan", "text":"Independent, AI-assisted 10-page HTML/CSS/JavaScript website with service pages, internal links and a browser-only demo form.", "path":"case-islaclean.html"}
+    {
+      "label": "SEO, content & operations",
+      "text": "Keyword mapping, client content review and publishing, campaign reports and follow-up workflows; anonymized excerpts and labeled templates.",
+      "path": "evidence.html"
+    },
+    {
+      "label": "IslaClean Palawan",
+      "text": "Independent, AI-assisted 10-page HTML/CSS/JavaScript website with service pages, internal links and a browser-only demo form.",
+      "path": "case-islaclean.html"
+    }
   ],
   "tools": [
-    ["SEO & analytics", "Google Search Console, Google Analytics 4 (GA4), Google Business Profile, Ubersuggest, Looker Studio."],
-    ["Web / CMS", "WordPress, Squarespace; HTML, CSS, JavaScript and GitHub for website projects."],
-    ["CRM & marketing", "GoHighLevel (GHL), Google Ads, Brevo, Mailchimp."],
-    ["AI-assisted workflows", "ChatGPT, Claude, Gemini for research, planning, drafting and summarization; outputs manually reviewed."],
-    ["Productivity", "Google Workspace (Docs, Sheets, Drive, Gmail, Calendar); Microsoft Office (Word, Excel, PowerPoint)."],
-    ["Project / communication & design", "Basecamp, Slack, ClickUp, Otter.ai; Canva."]
+    [
+      "SEO & analytics",
+      "Google Search Console, Google Analytics 4 (GA4), Google Business Profile, Ubersuggest, Looker Studio."
+    ],
+    [
+      "Web / CMS",
+      "WordPress, Squarespace; HTML, CSS, JavaScript and GitHub for website projects."
+    ],
+    [
+      "CRM & marketing",
+      "GoHighLevel (GHL), Google Ads, Brevo, Mailchimp."
+    ],
+    [
+      "AI-assisted workflows",
+      "ChatGPT, Claude, Gemini for research, planning, drafting and summarization; outputs manually reviewed."
+    ],
+    [
+      "Productivity",
+      "Google Workspace (Docs, Sheets, Drive, Gmail, Calendar); Microsoft Office (Word, Excel, PowerPoint)."
+    ],
+    [
+      "Project / communication & design",
+      "Basecamp, Slack, ClickUp, Otter.ai; Canva."
+    ]
   ],
   "education": "BS in Electrical Engineering | Palawan State University | 2018–2023",
   "credential": "Registered Electrical Engineer"

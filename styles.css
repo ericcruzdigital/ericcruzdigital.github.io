@@ -23,7 +23,7 @@
 .capability-band{background:var(--alt);border-bottom:1px solid var(--line);padding:26px 0}
 .capability-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:35px}
 .capability-grid h2{font-size:1.1rem;letter-spacing:-.02em;margin-bottom:7px}.capability-grid p{font-size:.9rem;color:var(--muted)}
-.related-grid{display:grid;grid-template-columns:1fr 1fr;gap:25px;margin-top:30px}
+.related-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:25px;margin-top:30px}
 .related-grid>a{padding:26px;border:1px solid var(--line);text-decoration:none}.related-grid .eyebrow{margin-bottom:12px}
 .related-grid p:not(.eyebrow){margin:15px 0;color:var(--muted)}.related-grid h3{font-size:1.45rem}.related-grid>a:hover h3{text-decoration:underline}
 .case-facts{grid-template-columns:1fr 1fr 1.1fr;max-width:none;gap:30px}
@@ -38,3 +38,6 @@ tbody th{background:transparent;font-size:inherit;font-weight:600;width:27%}tr:l
 @media(max-width:900px){.hero-grid{grid-template-columns:1fr 180px;gap:32px}.hero h1{font-size:3rem}.brand span{font-size:.72rem}.nav-links{gap:15px}.case-facts{gap:20px}}
 @media(max-width:680px){.hero-grid{display:flex;gap:28px}.hero{padding:38px 0}.hero h1{font-size:clamp(2.2rem,9.2vw,3.2rem)}.portrait{padding:20px 0 0}.portrait img{width:76px;height:76px}.capability-grid,.related-grid,.case-facts{grid-template-columns:1fr;gap:22px}.capability-band{padding:24px 0}.nav-links{gap:2px}.nav-links a{display:block;min-height:44px;padding:10px 0}.menu-btn{min-height:44px}.brand{font-size:1rem}.brand span{font-size:.65rem}.footer-inner>div:last-child{gap:12px 22px}.sample-index{gap:5px 20px}.sample-index a{padding:8px 0}.sample-detail{padding:12px}.resume-heading>p:last-child{overflow-wrap:anywhere}}
 @media print{.resume-shell{font-size:10pt}.resume-content section{margin-top:12px}.resume-content h2{margin-bottom:7px;padding-bottom:4px}.resume-content p+p{margin-top:4px}.resume-content article{break-inside:auto}.resume-role{margin-bottom:5px}.resume-content ul{margin:7px 0}.resume-heading{padding-bottom:10px}.resume-heading .eyebrow{display:none}.resume-heading>p:last-child{font-size:9pt}.resume-role span{font-size:9pt}}
+
+/* Content workflow cards remain readable at tablet widths. */
+@media(min-width:681px) and (max-width:1000px){.related-grid{grid-template-columns:1fr}.related-grid>a{padding:22px}}

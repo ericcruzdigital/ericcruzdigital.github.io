@@ -4,15 +4,71 @@ on:
     branches: [career-package-recovery-20261008]
   workflow_dispatch:
 permissions:
-  contents: read
+  contents: write
+concurrency:
+  group: career-package-recovery
+  cancel-in-progress: false
 jobs:
-  inspect:
-    runs-on: ubuntu-latest
+  build-and-check:
+    if: github.ref_name == 'career-package-recovery-20261008'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
-      - name: Confirm recoverable source
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install build and verification dependencies
         run: |
-          test -s scripts/resume.json
-          test -s scripts/build-resume.cjs
-          test -s downloads/Eric_John_Cruz_Resume.docx
-          git rev-parse HEAD
+          npm install --no-save --package-lock=false docx@9.5.1 playwright@1.56.1 axe-core@4.11.0
+          npx playwright install --with-deps chromium
+          python -m pip install pdf2image==1.17.0
+          sudo apt-get update
+          sudo apt-get install -y libreoffice-writer poppler-utils fonts-crosextra-carlito
+      - name: Rebuild the career pages
+        run: python scripts/build-career.py
+      - name: Preserve website checkpoint
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git fetch origin "$GITHUB_REF_NAME"
+          test "$(git rev-parse FETCH_HEAD)" = "$GITHUB_SHA"
+          git add -- '*.html' sitemap.xml samples
+          if ! git diff --cached --quiet; then
+            git commit -m "Build content publishing case and synchronized online resume"
+            git push origin "HEAD:$GITHUB_REF_NAME"
+          fi
+      - name: Mark Word editing operation
+        run: node scripts/qa/mark_artifact_operation_started.mjs --operation-kind edit --expected-output-count 1 --output-format docx
+      - name: Build and render the Word resume
+        run: |
+          node scripts/build-resume.cjs
+          python scripts/qa/render_docx.py downloads/Eric_John_Cruz_Resume.docx --output_dir qa-output/resume --emit_pdf --dpi 140 --verbose
+          python scripts/check-resume.py
+      - name: Verify desktop mobile accessibility links and downloads
+        run: node scripts/check-site.cjs
+      - name: Preserve the validated Word file
+        run: |
+          git add downloads/Eric_John_Cruz_Resume.docx
+          if ! git diff --cached --quiet; then
+            git commit -m "Build and validate synchronized Word resume"
+            git push origin "HEAD:$GITHUB_REF_NAME"
+          fi
+      - name: Preserve visual review output on a separate branch
+        if: always()
+        run: |
+          if [ -d qa-output ]; then
+            git switch -c "qa/career-$GITHUB_RUN_ID"
+            git add -f qa-output
+            git commit -m "Preserve career package verification output for run $GITHUB_RUN_ID"
+            git push origin "HEAD:qa/career-$GITHUB_RUN_ID"
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: career-package-verification
+          path: qa-output
+          retention-days: 14
