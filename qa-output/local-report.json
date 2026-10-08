@@ -1,0 +1,376 @@
+{
+  "mode": "local",
+  "pages": 21,
+  "viewports": [
+    1365,
+    768,
+    390,
+    320
+  ],
+  "accessibility": [
+    {
+      "file": "404.html",
+      "width": 1365,
+      "violations": []
+    },
+    {
+      "file": "case-content-publishing.html",
+      "width": 1365,
+      "violations": []
+    },
+    {
+      "file": "case-google-ads.html",
+      "width": 1365,
+      "violations": []
+    },
+    {
+      "file": "case-islaclean.html",
+      "width": 1365,
+      "violations": []
+    },
+    {
+      "file": "case-keyword-content.html",
+      "width": 1365,
+      "violations": []
+    },
+    {
+      "file": "case-local-seo.html",
+      "width": 1365,
+      "violations": []
+    },
+    {
+      "file": "case-operations.html",
+      "width": 1365,
+      "violations": []
+    },
+    {
+      "file": "case-reporting.html",
+      "width": 1365,
+      "violations": []
+    },
+    {
+      "file": "evidence.html",
+      "width": 1365,
+      "violations": []
+    },
+    {
+      "file": "index.html",
+      "width": 1365,
+      "violations": []
+    },
+    {
+      "file": "resume.html",
+      "width": 1365,
+      "violations": []
+    },
+    {
+      "file": "islaclean/about.html",
+      "width": 1365,
+      "violations": []
+    },
+    {
+      "file": "islaclean/blog-deep-cleaning-checklist.html",
+      "width": 1365,
+      "violations": []
+    },
+    {
+      "file": "islaclean/blog.html",
+      "width": 1365,
+      "violations": []
+    },
+    {
+      "file": "islaclean/contact.html",
+      "width": 1365,
+      "violations": []
+    },
+    {
+      "file": "islaclean/deep-cleaning.html",
+      "width": 1365,
+      "violations": []
+    },
+    {
+      "file": "islaclean/house-cleaning.html",
+      "width": 1365,
+      "violations": []
+    },
+    {
+      "file": "islaclean/index.html",
+      "width": 1365,
+      "violations": []
+    },
+    {
+      "file": "islaclean/move-in-out-cleaning.html",
+      "width": 1365,
+      "violations": []
+    },
+    {
+      "file": "islaclean/service-area.html",
+      "width": 1365,
+      "violations": []
+    },
+    {
+      "file": "islaclean/services.html",
+      "width": 1365,
+      "violations": []
+    },
+    {
+      "file": "404.html",
+      "width": 390,
+      "violations": []
+    },
+    {
+      "file": "case-content-publishing.html",
+      "width": 390,
+      "violations": []
+    },
+    {
+      "file": "case-google-ads.html",
+      "width": 390,
+      "violations": []
+    },
+    {
+      "file": "case-islaclean.html",
+      "width": 390,
+      "violations": []
+    },
+    {
+      "file": "case-keyword-content.html",
+      "width": 390,
+      "violations": []
+    },
+    {
+      "file": "case-local-seo.html",
+      "width": 390,
+      "violations": []
+    },
+    {
+      "file": "case-operations.html",
+      "width": 390,
+      "violations": []
+    },
+    {
+      "file": "case-reporting.html",
+      "width": 390,
+      "violations": []
+    },
+    {
+      "file": "evidence.html",
+      "width": 390,
+      "violations": []
+    },
+    {
+      "file": "index.html",
+      "width": 390,
+      "violations": []
+    },
+    {
+      "file": "resume.html",
+      "width": 390,
+      "violations": []
+    },
+    {
+      "file": "islaclean/about.html",
+      "width": 390,
+      "violations": []
+    },
+    {
+      "file": "islaclean/blog-deep-cleaning-checklist.html",
+      "width": 390,
+      "violations": []
+    },
+    {
+      "file": "islaclean/blog.html",
+      "width": 390,
+      "violations": []
+    },
+    {
+      "file": "islaclean/contact.html",
+      "width": 390,
+      "violations": []
+    },
+    {
+      "file": "islaclean/deep-cleaning.html",
+      "width": 390,
+      "violations": []
+    },
+    {
+      "file": "islaclean/house-cleaning.html",
+      "width": 390,
+      "violations": []
+    },
+    {
+      "file": "islaclean/index.html",
+      "width": 390,
+      "violations": []
+    },
+    {
+      "file": "islaclean/move-in-out-cleaning.html",
+      "width": 390,
+      "violations": []
+    },
+    {
+      "file": "islaclean/service-area.html",
+      "width": 390,
+      "violations": []
+    },
+    {
+      "file": "islaclean/services.html",
+      "width": 390,
+      "violations": []
+    }
+  ],
+  "failures": [],
+  "external": [
+    {
+      "url": "https://www.linkedin.com/in/eric-john-cruz-ree/",
+      "status": 999,
+      "verified": false
+    },
+    {
+      "url": "https://ericcruzdigital.github.io/",
+      "status": 200,
+      "verified": true
+    }
+  ],
+  "downloads": [
+    {
+      "url": "http://127.0.0.1:38987/downloads/Eric_John_Cruz_Resume.docx",
+      "bytes": 9990,
+      "exactMatch": true
+    },
+    {
+      "url": "http://127.0.0.1:38987/samples/campaign-intent-review.csv",
+      "bytes": 470,
+      "exactMatch": true
+    },
+    {
+      "url": "http://127.0.0.1:38987/samples/landing-page-planning-excerpt.csv",
+      "bytes": 370,
+      "exactMatch": true
+    },
+    {
+      "url": "http://127.0.0.1:38987/samples/lead-tracking-workflow.csv",
+      "bytes": 578,
+      "exactMatch": true
+    },
+    {
+      "url": "http://127.0.0.1:38987/samples/keyword-categorization.csv",
+      "bytes": 351,
+      "exactMatch": true
+    },
+    {
+      "url": "http://127.0.0.1:38987/samples/local-seo-review-template.csv",
+      "bytes": 609,
+      "exactMatch": true
+    },
+    {
+      "url": "http://127.0.0.1:38987/samples/operations-handoff-template.csv",
+      "bytes": 203,
+      "exactMatch": true
+    },
+    {
+      "url": "http://127.0.0.1:38987/samples/email-reporting-excerpt.csv",
+      "bytes": 428,
+      "exactMatch": true
+    },
+    {
+      "url": "http://127.0.0.1:38987/samples/seo-reporting-review-template.csv",
+      "bytes": 289,
+      "exactMatch": true
+    }
+  ],
+  "timings": [
+    {
+      "file": "404.html",
+      "loadMilliseconds": 19
+    },
+    {
+      "file": "case-content-publishing.html",
+      "loadMilliseconds": 12
+    },
+    {
+      "file": "case-google-ads.html",
+      "loadMilliseconds": 12
+    },
+    {
+      "file": "case-islaclean.html",
+      "loadMilliseconds": 12
+    },
+    {
+      "file": "case-keyword-content.html",
+      "loadMilliseconds": 11
+    },
+    {
+      "file": "case-local-seo.html",
+      "loadMilliseconds": 11
+    },
+    {
+      "file": "case-operations.html",
+      "loadMilliseconds": 10
+    },
+    {
+      "file": "case-reporting.html",
+      "loadMilliseconds": 10
+    },
+    {
+      "file": "evidence.html",
+      "loadMilliseconds": 11
+    },
+    {
+      "file": "index.html",
+      "loadMilliseconds": 23
+    },
+    {
+      "file": "resume.html",
+      "loadMilliseconds": 10
+    },
+    {
+      "file": "islaclean/about.html",
+      "loadMilliseconds": 11
+    },
+    {
+      "file": "islaclean/blog-deep-cleaning-checklist.html",
+      "loadMilliseconds": 12
+    },
+    {
+      "file": "islaclean/blog.html",
+      "loadMilliseconds": 10
+    },
+    {
+      "file": "islaclean/contact.html",
+      "loadMilliseconds": 14
+    },
+    {
+      "file": "islaclean/deep-cleaning.html",
+      "loadMilliseconds": 10
+    },
+    {
+      "file": "islaclean/house-cleaning.html",
+      "loadMilliseconds": 10
+    },
+    {
+      "file": "islaclean/index.html",
+      "loadMilliseconds": 19
+    },
+    {
+      "file": "islaclean/move-in-out-cleaning.html",
+      "loadMilliseconds": 10
+    },
+    {
+      "file": "islaclean/service-area.html",
+      "loadMilliseconds": 13
+    },
+    {
+      "file": "islaclean/services.html",
+      "loadMilliseconds": 10
+    }
+  ],
+  "checks": [
+    "Skip link, mobile menu, Escape focus return and navigation",
+    "Actual Word download interaction",
+    "Demo form confirmation, reset, local events and no data transmission",
+    "No-JavaScript navigation and safely disabled demo form",
+    "Robots and sitemap"
+  ],
+  "internalLinkCount": 60
+}
