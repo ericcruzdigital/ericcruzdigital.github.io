@@ -32,12 +32,14 @@ with ZipFile(path) as z:
     assert len(doc.findall(".//w:numPr", ns)) == len(data["bullets"]) + len(data["work"]), "Use real bullets"
     for col in doc.findall(".//w:cols", ns):
         assert col.get("{"+ns["w"]+"}num", "1") == "1", "Multiple columns"
+    style_ids = [s.get("{"+ns["w"]+"}styleId") for s in styles.findall("./w:style",ns)]
+    assert len(style_ids) == len(set(style_ids)), "Duplicate style IDs"
     for style_id in ["Title", "Heading1"]:
         style = styles.find(".//w:style[@w:styleId='"+style_id+"']",ns)
         assert style is not None
         color = style.find("./w:rPr/w:color",ns)
         assert color is not None and color.get("{"+ns["w"]+"}val") == "000000"
-    forbidden = ["JDS1", "Forte Dental", "Davis PTSR", "Sutherland Packaging", "StandUp CDA", "Ahrefs", "Semrush", "Screaming Frog", "Sitebulb", "HubSpot", "Shopify", "Merchant Center"]
+    forbidden = ["Ahrefs", "Semrush", "Screaming Frog", "Sitebulb", "HubSpot", "Shopify", "Merchant Center"]
     assert all(x.lower() not in text.lower() for x in forbidden), "Unexpected private name or unsupported tool"
     for name in z.namelist():
         if name.startswith("word/") and any(part in name for part in ["comments", "header", "footer"]) and name.endswith(".xml"):

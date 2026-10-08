@@ -32,10 +32,11 @@ const content = [
 ];
 const doc = new Document({
  creator:r.name,title:r.name+' | '+r.title,description:'Professional résumé',
- styles:{default:{document:{run:{font:'Calibri',size:22,color:'111111'},paragraph:{spacing:{after:30,line:245}}}},paragraphStyles:[
- {id:'Title',name:'Title',basedOn:'Normal',run:{font:'Calibri',size:36,bold:true,color:'000000'},paragraph:{keepNext:true}},
- {id:'Heading1',name:'Heading 1',basedOn:'Normal',next:'Normal',run:{font:'Calibri',size:22,bold:true,color:'000000'},paragraph:{keepNext:true}}
- ]},
+ styles:{default:{
+ document:{run:{font:'Calibri',size:22,color:'111111'},paragraph:{spacing:{after:30,line:245}}},
+ title:{basedOn:'Normal',run:{font:'Calibri',size:36,bold:true,color:'000000'},paragraph:{keepNext:true}},
+ heading1:{basedOn:'Normal',next:'Normal',run:{font:'Calibri',size:22,bold:true,color:'000000'},paragraph:{keepNext:true}}
+ }},
  numbering:{config:[{reference:'resume-bullets',levels:[{level:0,format:LevelFormat.BULLET,text:'•',alignment:AlignmentType.LEFT,style:{paragraph:{indent:{left:190,hanging:190}}}}]}]},
  sections:[{properties:{page:{size:{width:11906,height:16838},margin:{top:650,bottom:650,left:760,right:760}}},children:content}]
 });

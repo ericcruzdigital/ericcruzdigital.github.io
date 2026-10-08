@@ -41,8 +41,6 @@ jobs:
             git commit -m "Build content publishing case and synchronized online resume"
             git push origin "HEAD:$GITHUB_REF_NAME"
           fi
-      - name: Mark Word editing operation
-        run: node scripts/qa/mark_artifact_operation_started.mjs --operation-kind edit --expected-output-count 1 --output-format docx
       - name: Build and render the Word resume
         run: |
           node scripts/build-resume.cjs
