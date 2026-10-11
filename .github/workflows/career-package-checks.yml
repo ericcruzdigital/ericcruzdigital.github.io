@@ -1,16 +1,16 @@
 name: Career package checks
 on:
   push:
-    branches: [career-package-recovery-20261008]
+    branches: [career-package-recovery-20261008, portfolio-phase2-20261011]
   workflow_dispatch:
 permissions:
   contents: write
 concurrency:
-  group: career-package-recovery
+  group: career-package-${{ github.ref }}
   cancel-in-progress: false
 jobs:
   build-and-check:
-    if: github.ref_name == 'career-package-recovery-20261008'
+    if: github.ref_name == 'career-package-recovery-20261008' || github.ref_name == 'portfolio-phase2-20261011'
     runs-on: ubuntu-24.04
     timeout-minutes: 20
     steps:
@@ -30,6 +30,8 @@ jobs:
           sudo apt-get install -y libreoffice-writer poppler-utils fonts-crosextra-carlito
       - name: Rebuild the career pages
         run: python scripts/build-career.py
+      - name: Verify career facts and preserved work
+        run: python scripts/check-career-content.py
       - name: Preserve website checkpoint
         run: |
           git config user.name "github-actions[bot]"
@@ -38,7 +40,7 @@ jobs:
           test "$(git rev-parse FETCH_HEAD)" = "$GITHUB_SHA"
           git add -- '*.html' sitemap.xml samples
           if ! git diff --cached --quiet; then
-            git commit -m "Build content publishing case and synchronized online resume"
+            git commit -m "Build Phase 2 portfolio and synchronized online resume"
             git push origin "HEAD:$GITHUB_REF_NAME"
           fi
       - name: Build and render the Word resume

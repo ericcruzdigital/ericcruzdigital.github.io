@@ -58,7 +58,7 @@ const failures=(label,message)=>report.failures.push({label,message});
      report.accessibility.push({file,width,violations});
      for(const v of violations)failures(`${file}@${width}`,`axe ${v.id}: ${JSON.stringify(v.nodes)}`);
     }
-    if(['index.html','resume.html','evidence.html','case-local-seo.html','case-operations.html','case-content-publishing.html'].includes(file)&&(width===1365||width===390))await page.screenshot({path:path.join(output,`${live?'live-':''}${file.replace('.html','')}-${width}.png`),fullPage:file!=='index.html'});
+    if(['index.html','experience.html','capabilities.html','resume.html','evidence.html','case-local-seo.html','case-operations.html','case-content-publishing.html'].includes(file)&&(width===1365||width===390))await page.screenshot({path:path.join(output,`${live?'live-':''}${file.replace('.html','')}-${width}.png`),fullPage:true});
    }
    report.viewports.push(width);console.log(`Checked ${pages.length} pages at ${width}px`);
   }
