@@ -1,30 +1,30 @@
 {
   "name": "Eric John Cruz",
-  "title": "SEO & Digital Marketing Operations",
+  "title": "Digital Marketing & SEO Specialist",
   "location": "Philippines | Available for remote work",
   "email": "cruzericjohn@gmail.com",
   "website": "https://ericcruzdigital.github.io/",
   "linkedin": "https://www.linkedin.com/in/eric-john-cruz-ree/",
-  "summary": "SEO and digital marketing professional combining keyword research, content publishing and local search with analytics and campaign coordination. Turns source data into clear reports and next actions, works with CMS and CRM platforms, and documents repeatable processes. Uses AI-assisted research and drafting with manual verification.",
-  "role": "Digital Marketing & SEO Operations",
-  "employment": "Freelance | February 2023–Present | Current SEO engagement: part-time",
+  "summary": "Digital marketing and SEO specialist with freelance experience since February 2023 and agency work through SEO Leads and JDS1 Marketing. Combines SEO strategy and implementation, local search, content publishing, website management, campaign analysis and CRM workflows. Connects hands-on execution with clear client communication, quality review and repeatable delivery. Based in the Philippines and available for international remote roles.",
+  "role": "Digital Marketing & SEO",
+  "employment": "Freelance | February 2023–Present",
   "bullets": [
-    "Research and categorize keywords by service, intent and location; map topics to relevant pages and support on-page content optimization.",
-    "Support Google Business Profile work, service-area relevance checks, and citation and backlink coordination.",
-    "Review Search Console, GA4, Ubersuggest and Looker Studio data; investigate ranking or indexing issues and document next actions.",
-    "Prepare SEO updates, monthly reviews and email summaries; verify dates, source data and conclusions before delivery.",
-    "Research blog topics, prepare material for client review, implement requested revisions and publish approved posts on client websites.",
-    "Coordinate recurring tasks, track owners and blockers, and prepare process guides and onboarding materials for handoffs and quality review.",
-    "Work with WordPress and Squarespace; support Google Ads keyword and landing-page planning, and track lead sources, stages and follow-up notes in GoHighLevel."
+    "Deliver SEO and digital marketing work across multiple agency client accounts, adapting keywords, content and campaign priorities to each business and market.",
+    "Work with WordPress, Squarespace and GoHighLevel; connect website content, landing-page planning, lead tracking and follow-up processes."
   ],
   "support_role": "Subject Matter Expert / Customer Support",
   "support_employment": "Foundever | August 2020–March 2023",
-  "support_text": "Progressed to Subject Matter Expert in April 2021. Coached colleagues, monitored quality, handled escalations, analyzed performance and prepared reports and process guidance.",
+  "support_text": "Progressed to Subject Matter Expert in April 2021. Resolved escalations, coached colleagues, monitored quality, analyzed performance and prepared reports and process guidance. Developed the communication, troubleshooting and documentation skills used in remote marketing work.",
   "work": [
     {
-      "label": "SEO, content & operations",
-      "text": "Keyword mapping, client content review and publishing, campaign reports and follow-up workflows; anonymized excerpts and labeled templates.",
+      "label": "SEO & campaign evidence",
+      "text": "Keyword mapping, local SEO reviews, email reporting, landing-page planning and lead-tracking excerpts; client details removed.",
       "path": "evidence.html"
+    },
+    {
+      "label": "Content review & publishing",
+      "text": "Agency workflow covering research, preparation, client feedback, revisions, approval and CMS publishing.",
+      "path": "case-content-publishing.html"
     },
     {
       "label": "IslaClean Palawan",
@@ -38,26 +38,61 @@
       "Google Search Console, Google Analytics 4 (GA4), Google Business Profile, Ubersuggest, Looker Studio."
     ],
     [
-      "Web / CMS",
-      "WordPress, Squarespace; HTML, CSS, JavaScript and GitHub for website projects."
+      "Websites & CRM",
+      "WordPress, Squarespace, GoHighLevel (GHL); basic HTML, CSS, JavaScript and GitHub."
     ],
     [
-      "CRM & marketing",
-      "GoHighLevel (GHL), Google Ads, Brevo, Mailchimp."
+      "Campaigns & content",
+      "Google Ads, Brevo, Mailchimp, Canva."
+    ],
+    [
+      "Productivity & collaboration",
+      "Google Workspace, Microsoft Office, Google Sheets, Excel, Basecamp, Slack, ClickUp, Otter.ai."
     ],
     [
       "AI-assisted workflows",
-      "ChatGPT, Claude, Gemini for research, planning, drafting and summarization; outputs manually reviewed."
-    ],
-    [
-      "Productivity",
-      "Google Workspace (Docs, Sheets, Drive, Gmail, Calendar); Microsoft Office (Word, Excel, PowerPoint)."
-    ],
-    [
-      "Project / communication & design",
-      "Basecamp, Slack, ClickUp, Otter.ai; Canva."
+      "ChatGPT, Claude and Gemini for research, planning, drafting and analysis; source checks and manual review before delivery."
     ]
   ],
   "education": "BS in Electrical Engineering | Palawan State University | 2018–2023",
-  "credential": "Registered Electrical Engineer"
+  "credential": "Registered Electrical Engineer",
+  "agencies": [
+    {
+      "company": "SEO Leads",
+      "relationship": "Current agency engagement (part-time)",
+      "scope": "SEO, digital marketing & campaign operations",
+      "url": "https://seoleads.io/",
+      "bullets": [
+        "Execute keyword research, mapping and on-page optimization; review technical SEO, indexing and local search priorities.",
+        "Optimize local visibility through Google Business Profile work, service-area targeting, citations, backlinks and content distribution.",
+        "Analyze Search Console, GA4, Ubersuggest and Looker Studio data; prepare SEO reviews, Google Ads performance summaries and email campaign reports with next actions.",
+        "Coordinate content, press releases and recurring campaign tasks; document processes, assign follow-ups and review deliverables for accuracy."
+      ]
+    },
+    {
+      "company": "JDS1 Marketing",
+      "relationship": "Previous agency engagement",
+      "scope": "SEO, content & website publishing",
+      "url": "https://jds1marketing.com/",
+      "bullets": [
+        "Researched and prepared SEO content for client accounts across dental practice services, rehabilitation, packaging and home organization.",
+        "Communicated with clients for content review and approval, implemented requested revisions and published approved posts on their websites.",
+        "Moved blog material through research, preparation, review, revision, approval and publishing within the agency workflow."
+      ]
+    }
+  ],
+  "skills": [
+    [
+      "Search & content",
+      "SEO strategy, keyword research and mapping, on-page and technical SEO, local SEO, Google Business Profile, citations, backlinks, digital PR and content publishing."
+    ],
+    [
+      "Campaigns & customer journeys",
+      "Google Ads planning and optimization, landing pages, email marketing, CRM pipelines, lead tracking and marketing automation workflows."
+    ],
+    [
+      "Delivery & analysis",
+      "Performance analysis, social content and business profiles, client communication, project coordination, SOPs, task delegation and quality assurance."
+    ]
+  ]
 }

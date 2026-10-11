@@ -8,7 +8,7 @@ import subprocess
 import xml.etree.ElementTree as ET
 
 root = Path(__file__).resolve().parents[1]
-data = json.loads((root / "scripts/resume.json").read_text())
+data = json.loads((root / "scripts/resume.json").read_text(encoding="utf-8"))
 path = root / "downloads/Eric_John_Cruz_Resume.docx"
 ns = {"w": "http://schemas.openxmlformats.org/wordprocessingml/2006/main"}
 with ZipFile(path) as z:
@@ -19,6 +19,9 @@ with ZipFile(path) as z:
     text = "\n".join(paragraphs)
     expected = [data[k] for k in ["name", "title", "location", "summary", "role", "employment", "support_role", "support_employment", "support_text", "education", "credential"]]
     expected += data["bullets"]
+    expected += [a[k] for a in data["agencies"] for k in ["company", "relationship", "scope"]]
+    expected += [b for a in data["agencies"] for b in a["bullets"]]
+    expected += [s for pair in data["skills"] for s in pair]
     expected += [s for pair in data["tools"] for s in pair]
     expected += [v for work in data["work"] for k,v in work.items() if k != "path"]
     for item in expected:
@@ -29,7 +32,7 @@ with ZipFile(path) as z:
         assert re.sub(r"\s+", " ", item) in online, "Missing online content: " + item
     assert not doc.findall(".//w:tbl", ns), "ATS reading-order risk: table"
     assert not doc.findall(".//w:txbxContent", ns), "ATS reading-order risk: text box"
-    assert len(doc.findall(".//w:numPr", ns)) == len(data["bullets"]) + len(data["work"]), "Use real bullets"
+    assert len(doc.findall(".//w:numPr", ns)) == len(data["bullets"]) + sum(len(a["bullets"]) for a in data["agencies"]) + len(data["work"]), "Use real bullets"
     for col in doc.findall(".//w:cols", ns):
         assert col.get("{"+ns["w"]+"}num", "1") == "1", "Multiple columns"
     style_ids = [s.get("{"+ns["w"]+"}styleId") for s in styles.findall("./w:style",ns)]

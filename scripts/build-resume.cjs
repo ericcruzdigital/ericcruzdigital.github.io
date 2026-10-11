@@ -9,8 +9,8 @@ const r = JSON.parse(fs.readFileSync(path.join(__dirname, 'resume.json'), 'utf8'
 const run = (text, options={}) => new TextRun({text, ...options});
 const link = (text, url) => new ExternalHyperlink({link: url, children:[run(text, {color:'17465B', underline:{}})]});
 const p = (children, options={}) => new Paragraph({children: typeof children==='string'?[run(children)]:children, ...options});
-const heading = text => p(text, {heading:HeadingLevel.HEADING_1, spacing:{before:115,after:45}, keepNext:true});
-const bullet = children => p(children,{numbering:{reference:'resume-bullets',level:0},spacing:{after:30},keepLines:true});
+const heading = (text, options={}) => p(text, {heading:HeadingLevel.HEADING_1, spacing:{before:150,after:65}, keepNext:true, ...options});
+const bullet = children => p(children,{numbering:{reference:'resume-bullets',level:0},spacing:{after:65},keepLines:true});
 const content = [
  p(r.name,{heading:HeadingLevel.TITLE,spacing:{after:35}}),
  p([run(r.title,{bold:true,size:25})],{spacing:{after:35}}),
@@ -22,23 +22,30 @@ const content = [
  p([run(r.role,{bold:true})],{keepNext:true,spacing:{after:10}}),
  p(r.employment,{keepNext:true,spacing:{after:45}}),
  ...r.bullets.map(t=>bullet(t)),
+ ...r.agencies.flatMap(a=>[
+  p([run(a.company,{bold:true})],{keepNext:true,spacing:{before:100,after:25}}),
+  p(a.relationship+' | '+a.scope,{keepNext:true,spacing:{after:45}}),
+  ...a.bullets.map(t=>bullet(t))
+ ]),
  p([run(r.support_role,{bold:true})],{keepNext:true,spacing:{before:55,after:10}}),
  p(r.support_employment,{keepNext:true,spacing:{after:30}}),p(r.support_text),
- heading('Selected Work'),
+ heading('Selected Work',{pageBreakBefore:true}),
  ...r.work.map(w=>bullet([link(w.label,r.website+w.path),run(': '+w.text)])),
- heading('Skills & Tools'),
- ...r.tools.map(([label,text])=>p([run(label+': ',{bold:true}),run(text)],{spacing:{after:25}})),
+ heading('Core Capabilities'),
+ ...r.skills.map(([label,text])=>p([run(label+': ',{bold:true}),run(text)],{spacing:{after:80}})),
+ heading('Tools & Platforms'),
+ ...r.tools.map(([label,text])=>p([run(label+': ',{bold:true}),run(text)],{spacing:{after:65}})),
  heading('Education & Credential'),p(r.education),p(r.credential)
 ];
 const doc = new Document({
  creator:r.name,title:r.name+' | '+r.title,description:'Professional résumé',
  styles:{default:{
- document:{run:{font:'Calibri',size:22,color:'111111'},paragraph:{spacing:{after:30,line:245}}},
+ document:{run:{font:'Calibri',size:22,color:'111111'},paragraph:{spacing:{after:50,line:265}}},
  title:{basedOn:'Normal',run:{font:'Calibri',size:36,bold:true,color:'000000'},paragraph:{keepNext:true}},
  heading1:{basedOn:'Normal',next:'Normal',run:{font:'Calibri',size:22,bold:true,color:'000000'},paragraph:{keepNext:true}}
  }},
  numbering:{config:[{reference:'resume-bullets',levels:[{level:0,format:LevelFormat.BULLET,text:'•',alignment:AlignmentType.LEFT,style:{paragraph:{indent:{left:190,hanging:190}}}}]}]},
- sections:[{properties:{page:{size:{width:11906,height:16838},margin:{top:650,bottom:650,left:760,right:760}}},children:content}]
+ sections:[{properties:{page:{size:{width:11906,height:16838},margin:{top:750,bottom:750,left:850,right:850}}},children:content}]
 });
 Packer.toBuffer(doc).then(buffer=>{
  fs.writeFileSync(path.join(root,'downloads/Eric_John_Cruz_Resume.docx'),buffer);
