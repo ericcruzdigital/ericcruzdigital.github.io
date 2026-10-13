@@ -1,0 +1,100 @@
+name: Virtual assistant portfolio
+on:
+  push:
+    branches: [virtual-assistant-portfolio-20261013, main]
+    paths:
+      - 'virtual-assistant/**'
+      - 'scripts/*va*'
+      - 'scripts/VA-PORTFOLIO.md'
+      - 'downloads/Eric_John_Cruz_Virtual_Assistant_Resume.*'
+      - '.github/workflows/va-portfolio.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: va-portfolio-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  verify:
+    if: github.ref_name == 'virtual-assistant-portfolio-20261013' || github.ref_name == 'main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install document and browser verification tools
+        run: |
+          npm install --no-save --package-lock=false playwright@1.56.1 axe-core@4.11.0
+          npx playwright install --with-deps chromium
+          python -m pip install python-docx==1.2.0 pdf2image==1.17.0 pypdf==6.1.1
+          sudo apt-get update
+          sudo apt-get install -y libreoffice-writer poppler-utils fonts-crosextra-carlito
+      - name: Build and render dedicated VA resume
+        if: github.ref_name != 'main'
+        run: |
+          python scripts/build-va-resume.py
+          python scripts/qa/render_docx.py downloads/Eric_John_Cruz_Virtual_Assistant_Resume.docx --output_dir qa-va/resume --emit_pdf --dpi 120 --verbose
+          cp qa-va/resume/Eric_John_Cruz_Virtual_Assistant_Resume.pdf downloads/Eric_John_Cruz_Virtual_Assistant_Resume.pdf
+      - name: Verify all three resume formats
+        run: python scripts/check-va-resume.py
+      - name: Check portfolio before publication
+        if: github.ref_name != 'main'
+        run: node scripts/check-va-site.cjs
+      - name: Commit validated resume files to the feature branch
+        if: github.ref_name != 'main'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git fetch origin "$GITHUB_REF_NAME"
+          test "$(git rev-parse FETCH_HEAD)" = "$GITHUB_SHA"
+          git add downloads/Eric_John_Cruz_Virtual_Assistant_Resume.docx downloads/Eric_John_Cruz_Virtual_Assistant_Resume.pdf
+          if ! git diff --cached --quiet; then
+            git commit -m "Build and validate dedicated VA PDF and Word resumes"
+            git push origin "HEAD:$GITHUB_REF_NAME"
+          fi
+      - name: Wait for matching VA deployment
+        if: github.ref_name == 'main'
+        run: |
+          python - <<'PY'
+          import time, urllib.request
+          from pathlib import Path
+          expected=Path("virtual-assistant/index.html").read_bytes()
+          for attempt in range(40):
+              try:
+                  with urllib.request.urlopen("https://ericcruzdigital.github.io/virtual-assistant/?release="+str(time.time()),timeout=20) as r:
+                      if r.read()==expected:
+                          break
+              except Exception:
+                  pass
+              time.sleep(15)
+          else:
+              raise SystemExit("VA deployment did not match source within 10 minutes")
+          PY
+      - name: Verify published VA portfolio and downloads
+        if: github.ref_name == 'main'
+        run: node scripts/check-va-site.cjs --live
+      - name: Preserve review screenshots and reports
+        if: always()
+        run: |
+          if [ -d qa-va ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git rev-parse HEAD > qa-va/tested-commit.txt
+            git switch -c "qa/va-$GITHUB_RUN_ID"
+            git add -f qa-va
+            git commit -m "Preserve VA verification output for run $GITHUB_RUN_ID"
+            git push origin "HEAD:qa/va-$GITHUB_RUN_ID"
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: va-portfolio-verification
+          path: qa-va
+          retention-days: 14
