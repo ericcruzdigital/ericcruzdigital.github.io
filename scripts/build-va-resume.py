@@ -22,6 +22,16 @@ for name in ["Normal", "Title", "Subtitle", "Heading 1", "Heading 2", "List Bull
     style.paragraph_format.space_before = Pt(0)
     style.paragraph_format.space_after = Pt(4)
     style.paragraph_format.line_spacing = 1.02
+# Remove inherited title rules and character spacing from the default template.
+for style in doc.styles:
+    for tag in ["w:pBdr", "w:spacing"]:
+        if tag == "w:pBdr":
+            targets = style.element.xpath(".//w:pPr/w:pBdr")
+        else:
+            targets = style.element.xpath(".//w:rPr/w:spacing")
+        for node in targets:
+            node.getparent().remove(node)
+doc.styles["Subtitle"].font.italic = False
 doc.styles["Normal"].font.size = Pt(10)
 doc.styles["Title"].font.size = Pt(23)
 doc.styles["Title"].font.bold = True

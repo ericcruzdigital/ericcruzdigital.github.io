@@ -49,6 +49,7 @@ function fail(label,message){report.failures.push({label,message})}
     for(const im of data.images){assert.ok(im.ok&&im.alt);assert.ok(im.width<=im.natural,'Portrait must not be enlarged')}
     assert.ok(!/JDS1|Electrical Engineer|salary expectations|\$6|\$10|Salesforce|HubSpot|Zapier|lorem ipsum|TBD/i.test(data.text),'Content scope');
     for(const l of data.links){assert.ok(l.text,'Accessible link name');if(l.href.startsWith(base)){links.add(l.href);if(l.download)downloads.add(l.href)}}
+    await page.screenshot({path:path.join(out,(live?'live-':'')+path.basename(file,'.html')+'-viewport-'+width+'.png')});
     if(width===1440||width===390){
      await page.addScriptTag({path:require.resolve('axe-core/axe.min.js')});
      const results=await page.evaluate(async()=>await axe.run(document,{runOnly:{type:'tag',values:['wcag2a','wcag2aa','wcag21aa']}}));
