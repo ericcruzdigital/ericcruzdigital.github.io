@@ -1,0 +1,160 @@
+{
+  "mode": "preview",
+  "viewports": [
+    1440,
+    768,
+    390,
+    320
+  ],
+  "accessibility": [
+    {
+      "file": "virtual-assistant/index.html",
+      "width": 1440,
+      "violations": []
+    },
+    {
+      "file": "virtual-assistant/work.html",
+      "width": 1440,
+      "violations": []
+    },
+    {
+      "file": "virtual-assistant/resume.html",
+      "width": 1440,
+      "violations": []
+    },
+    {
+      "file": "virtual-assistant/index.html",
+      "width": 390,
+      "violations": []
+    },
+    {
+      "file": "virtual-assistant/work.html",
+      "width": 390,
+      "violations": []
+    },
+    {
+      "file": "virtual-assistant/resume.html",
+      "width": 390,
+      "violations": []
+    }
+  ],
+  "downloads": [
+    {
+      "url": "http://127.0.0.1:33999/downloads/Eric_John_Cruz_Virtual_Assistant_Resume.pdf",
+      "bytes": 40600,
+      "exactMatch": true
+    },
+    {
+      "url": "http://127.0.0.1:33999/downloads/Eric_John_Cruz_Virtual_Assistant_Resume.docx",
+      "bytes": 38372,
+      "exactMatch": true
+    },
+    {
+      "url": "http://127.0.0.1:33999/samples/email-reporting-excerpt.csv",
+      "bytes": 428,
+      "exactMatch": true
+    },
+    {
+      "url": "http://127.0.0.1:33999/samples/seo-reporting-review-template.csv",
+      "bytes": 289,
+      "exactMatch": true
+    },
+    {
+      "url": "http://127.0.0.1:33999/samples/operations-handoff-template.csv",
+      "bytes": 203,
+      "exactMatch": true
+    },
+    {
+      "url": "http://127.0.0.1:33999/samples/keyword-categorization.csv",
+      "bytes": 351,
+      "exactMatch": true
+    }
+  ],
+  "links": [
+    {
+      "url": "http://127.0.0.1:33999/virtual-assistant/#main",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:33999/virtual-assistant/",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:33999/virtual-assistant/#support",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:33999/virtual-assistant/work.html",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:33999/virtual-assistant/#experience",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:33999/virtual-assistant/resume.html",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:33999/virtual-assistant/#contact",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:33999/downloads/Eric_John_Cruz_Virtual_Assistant_Resume.pdf",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:33999/downloads/Eric_John_Cruz_Virtual_Assistant_Resume.docx",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:33999/virtual-assistant/work.html#reporting",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:33999/virtual-assistant/work.html#coordination",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:33999/virtual-assistant/work.html#content",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:33999/",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:33999/virtual-assistant/work.html#main",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:33999/samples/email-reporting-excerpt.csv",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:33999/samples/seo-reporting-review-template.csv",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:33999/samples/operations-handoff-template.csv",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:33999/samples/keyword-categorization.csv",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:33999/virtual-assistant/resume.html#main",
+      "status": 200
+    }
+  ],
+  "checks": [
+    "Keyboard skip navigation works",
+    "Actual PDF and Word download interactions",
+    "Navigation available at 320px without JavaScript",
+    "Public email and LinkedIn destinations match verified source",
+    "Existing marketing homepage, experience, resume, evidence, styles, script and Word file preserved; main live pages match",
+    "VA pages included in sitemap"
+  ],
+  "failures": []
+}
